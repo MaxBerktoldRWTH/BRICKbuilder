@@ -1,0 +1,3 @@
+rdflib
+PyQt5
+ifcopenshell

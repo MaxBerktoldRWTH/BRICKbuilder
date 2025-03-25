@@ -1,0 +1,815 @@
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix design: <http://example.org/design#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/building/#04a41b2c-87b1-40ac-a077-e085e85f80ce> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1150.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/7ddfaa13-f5e0-4336-ac7a-341e99b9671e> ;
+    design:targetEntity <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
+
+<http://example.org/building/#0c3d65d2-42d8-458d-8b01-c5d84bcb8cb7> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isLocationOf" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> ;
+    design:targetEntity <http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> .
+
+<http://example.org/building/#1c01d2de-5372-45af-8bc7-37b10d7ac9e4> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "525.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/8e0767a8-1d5c-4928-88d1-62d7d615ef84> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
+
+<http://example.org/building/#23755879-6e20-4af7-9f7c-31f182bb9a03> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "925.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> ;
+    design:targetEntity <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
+
+<http://example.org/building/#25e560b8-b469-46a1-a3c4-22281e1f1153> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> ;
+    design:targetEntity <http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> .
+
+<http://example.org/building/#286c2946-c1fb-4768-a7c3-39bdf949704e> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1000.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/315e0e35-6183-44c0-86ec-552f7b73cea5> ;
+    design:targetEntity <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
+
+<http://example.org/building/#337ea10b-9877-4308-8589-cab3d715ae7d> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isLocationOf" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> ;
+    design:targetEntity <http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> .
+
+<http://example.org/building/#39868a8c-2bc8-41e3-8f48-42a2c73d20d1> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> ;
+    design:targetEntity <http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> .
+
+<http://example.org/building/#415808a1-a4b7-43ef-b663-be51af5c0ebe> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "400.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> ;
+    design:targetEntity <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
+
+<http://example.org/building/#525ee688-aa53-4551-8dfb-3e911e9790ed> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1375.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/f348dd9f-3178-46b6-b4ab-b8aa33e68944> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
+
+<http://example.org/building/#5272d445-bdf1-4ad0-83b1-dcd13093670b> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "650.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/ee13b1fd-8d91-48da-8c15-64b16b176fc6> ;
+    design:targetEntity <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
+
+<http://example.org/building/#55af5287-36d0-4374-b818-72e6a7994398> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1025.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/2339d0f6-586c-48c3-9aff-2b87910db4ac> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
+
+<http://example.org/building/#759cf110-b0da-465d-b4fd-2c48c6c78de8> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "625.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/84208ba5-63f8-48ac-8c5e-0cf62d6099b6> ;
+    design:targetEntity <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
+
+<http://example.org/building/#7be1d1bb-e2da-4b1c-b1c0-2497461d19c7> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "700.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/2fa1abef-338c-4159-b852-c336e1f8d559> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
+
+<http://example.org/building/#7ca0df74-05a2-4293-b856-d402706cab2e> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "750.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> ;
+    design:targetEntity <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
+
+<http://example.org/building/#84b28f25-59e9-4689-8056-c9de602e3f84> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isLocationOf" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> ;
+    design:targetEntity <http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8> .
+
+<http://example.org/building/#855323d0-40dc-4514-a584-f0539b548fc0> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "875.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/b3043235-48ce-4141-a068-0be3233d4782> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
+
+<http://example.org/building/#8aa3169e-22a1-47e0-8ec6-06234f498a59> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "825.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/f3ff8726-242b-402b-ad78-69a53de93c84> ;
+    design:targetEntity <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
+
+<http://example.org/building/#8b3e5b1a-36cf-4011-933a-eac62c4364cf> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1175.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/5820ef36-e490-47dd-83ac-44f6fbc799bf> ;
+    design:targetEntity <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
+
+<http://example.org/building/#90238341-3287-4463-a325-5f2de89b230e> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isLocationOf" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> ;
+    design:targetEntity <http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> .
+
+<http://example.org/building/#a20d97ed-7c92-4cd1-b641-d3b1886f0fcf> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1200.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/239abd75-a927-4dc5-989e-70b06fc4f6c9> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
+
+<http://example.org/building/#ae93fcc8-2f0b-4e91-827e-0f873b7ede9c> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> ;
+    design:targetEntity <http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> .
+
+<http://example.org/building/#af667567-71c1-441b-b9b8-ed58bfa8a242> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1050.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/35be2a77-5c31-478c-b1f1-22936f95ca8f> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
+
+<http://example.org/building/#b0a2ed5f-4ef4-42cc-ae8e-fcdbb644425b> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "450.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/b8c37ae1-1a5b-497b-8d98-8949c52c67aa> ;
+    design:targetEntity <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
+
+<http://example.org/building/#b4f9e647-68b4-458f-a797-27ab47a60ac3> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> ;
+    design:targetEntity <http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> .
+
+<http://example.org/building/#b9479623-8494-436d-b340-ff9f86bf388a> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1100.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> ;
+    design:targetEntity <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
+
+<http://example.org/building/#bc1a716b-7705-4e0d-9858-3298cb827458> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> ;
+    design:targetEntity <http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> .
+
+<http://example.org/building/#c078beb6-07d9-4ea9-a553-0a5f7f463a6b> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "975.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/b4733d36-4257-4b82-ac70-fc7618327b8c> ;
+    design:targetEntity <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
+
+<http://example.org/building/#c38bedd6-e0ee-43bd-bd90-2c7cc89ded51> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "800.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/be52b3a4-fdb2-4a26-ae65-760a29de9e32> ;
+    design:targetEntity <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
+
+<http://example.org/building/#d0028e1f-9e39-4031-ba92-4165083020d8> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "500.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/46eb298d-3ea1-4f22-8545-ee86ef61b5a1> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
+
+<http://example.org/building/#d121dc5a-8b3d-4e8b-80be-5a51fd1b18df> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "475.0"^^xsd:float ;
+            design:y "600.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/6587058a-567a-412c-b212-c28f0b004942> ;
+    design:targetEntity <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
+
+<http://example.org/building/#d5e9e248-a748-47c7-a701-e9d9352b74d3> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1350.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/b4a464ba-1cb3-4fac-bf20-d0b220b6a21d> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
+
+<http://example.org/building/#dad616be-7984-4f13-8c37-bec98133173a> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isLocationOf" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> ;
+    design:targetEntity <http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> .
+
+<http://example.org/building/#dc6bf905-dad9-4b4b-bb3e-3e6a54a3025b> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1225.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/98a80a7c-0537-43fc-8b12-fa16b7c80096> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
+
+<http://example.org/building/#e6b4f1b7-8525-4082-9eac-91c6873016d2> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "675.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/88b0c37c-1041-4ee4-af77-830a1aea0671> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
+
+<http://example.org/building/#ed8ac338-7bb6-40e4-af06-888c365e4e64> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "125.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/977cd4c0-d4ce-4582-a9b0-28e1d7beb946> ;
+    design:targetEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> .
+
+<http://example.org/building/#edbfdf0e-f19d-42f4-a938-e9f3d6860666> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "575.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> ;
+    design:targetEntity <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
+
+<http://example.org/building/#f885e02b-3c8d-41eb-9270-cab3600cc743> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 255 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "1275.0"^^xsd:float ;
+            design:y "725.0"^^xsd:float ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#feeds" ;
+    design:sourceEntity <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> ;
+    design:targetEntity <http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8> .
+
+<http://example.org/building/#fa55b241-6227-4f74-ad35-cafe97a45838> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isLocationOf" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> ;
+    design:targetEntity <http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> .
+
+<http://example.org/building/#fe35571b-d323-4d71-82f5-501607ad1d5d> a design:Connection ;
+    design:color [ design:blue 0 ;
+            design:green 0 ;
+            design:red 0 ] ;
+    design:hasJoint [ design:jointIndex 0 ;
+            design:x "850.0"^^xsd:float ;
+            design:y "375.0"^^xsd:float ] ;
+    design:lineStyle 2 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#isPointOf" ;
+    design:sourceEntity <http://example.org/building/instances/0d7dda81-155c-47b8-9a1d-b5ebeb7e668d> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
+
+design:Connection_0 a design:Connection ;
+    design:color [ design:blue 255 ;
+            design:green 170 ;
+            design:red 170 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#hasLocation" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
+
+design:Connection_1 a design:Connection ;
+    design:color [ design:blue 255 ;
+            design:green 170 ;
+            design:red 170 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#hasLocation" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
+
+design:Connection_2 a design:Connection ;
+    design:color [ design:blue 255 ;
+            design:green 170 ;
+            design:red 170 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#hasLocation" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
+
+design:Connection_3 a design:Connection ;
+    design:color [ design:blue 255 ;
+            design:green 170 ;
+            design:red 170 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#hasLocation" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
+
+design:Connection_4 a design:Connection ;
+    design:color [ design:blue 255 ;
+            design:green 170 ;
+            design:red 170 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#hasLocation" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
+
+design:Connection_5 a design:Connection ;
+    design:color [ design:blue 255 ;
+            design:green 170 ;
+            design:red 170 ] ;
+    design:lineStyle 1 ;
+    design:lineWidth 2 ;
+    design:relationshipType "https://brickschema.org/schema/Brick#hasLocation" ;
+    design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
+    design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
+
+<http://example.org/building/instances/0d7dda81-155c-47b8-9a1d-b5ebeb7e668d> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+    design:hasPosition [ design:x 8.375e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
+
+<http://example.org/building/instances/2339d0f6-586c-48c3-9aff-2b87910db4ac> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+    design:hasPosition [ design:x 1.0125e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
+
+<http://example.org/building/instances/239abd75-a927-4dc5-989e-70b06fc4f6c9> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+    design:hasPosition [ design:x 1.1875e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
+
+<http://example.org/building/instances/2fa1abef-338c-4159-b852-c336e1f8d559> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+    design:hasPosition [ design:x 6.875e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
+
+<http://example.org/building/instances/315e0e35-6183-44c0-86ec-552f7b73cea5> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+    design:hasPosition [ design:x 9.875e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
+
+<http://example.org/building/instances/35be2a77-5c31-478c-b1f1-22936f95ca8f> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+    design:hasPosition [ design:x 1.0375e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
+
+<http://example.org/building/instances/46eb298d-3ea1-4f22-8545-ee86ef61b5a1> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+    design:hasPosition [ design:x 4.875e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
+
+<http://example.org/building/instances/5820ef36-e490-47dd-83ac-44f6fbc799bf> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+    design:hasPosition [ design:x 1.1625e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
+
+<http://example.org/building/instances/6587058a-567a-412c-b212-c28f0b004942> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+    design:hasPosition [ design:x 4.625e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
+
+<http://example.org/building/instances/7ddfaa13-f5e0-4336-ac7a-341e99b9671e> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+    design:hasPosition [ design:x 1.1375e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
+
+<http://example.org/building/instances/84208ba5-63f8-48ac-8c5e-0cf62d6099b6> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+    design:hasPosition [ design:x 6.125e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
+
+<http://example.org/building/instances/88b0c37c-1041-4ee4-af77-830a1aea0671> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+    design:hasPosition [ design:x 6.625e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
+
+<http://example.org/building/instances/8e0767a8-1d5c-4928-88d1-62d7d615ef84> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+    design:hasPosition [ design:x 5.125e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
+
+<http://example.org/building/instances/977cd4c0-d4ce-4582-a9b0-28e1d7beb946> a <https://brickschema.org/schema/1.1/Brick#Boiler> ;
+    design:hasPosition [ design:x 1e+02 ;
+            design:y 5.6e+02 ] ;
+    design:rotation 0 ;
+    brick:feeds <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> .
+
+<http://example.org/building/instances/98a80a7c-0537-43fc-8b12-fa16b7c80096> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+    design:hasPosition [ design:x 1.2125e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
+
+<http://example.org/building/instances/b3043235-48ce-4141-a068-0be3233d4782> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+    design:hasPosition [ design:x 8.625e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
+
+<http://example.org/building/instances/b4733d36-4257-4b82-ac70-fc7618327b8c> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+    design:hasPosition [ design:x 9.625e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
+
+<http://example.org/building/instances/b4a464ba-1cb3-4fac-bf20-d0b220b6a21d> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+    design:hasPosition [ design:x 1.3375e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
+
+<http://example.org/building/instances/b8c37ae1-1a5b-497b-8d98-8949c52c67aa> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+    design:hasPosition [ design:x 4.375e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
+
+<http://example.org/building/instances/be52b3a4-fdb2-4a26-ae65-760a29de9e32> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+    design:hasPosition [ design:x 7.875e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
+
+<http://example.org/building/instances/ee13b1fd-8d91-48da-8c15-64b16b176fc6> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+    design:hasPosition [ design:x 6.375e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
+
+<http://example.org/building/instances/f348dd9f-3178-46b6-b4ab-b8aa33e68944> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+    design:hasPosition [ design:x 1.3625e+03 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
+
+<http://example.org/building/instances/f3ff8726-242b-402b-ad78-69a53de93c84> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+    design:hasPosition [ design:x 8.125e+02 ;
+            design:y 8.75e+02 ] ;
+    design:rotation 0 ;
+    brick:isPointOf <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
+
+<http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+    design:hasPosition [ design:x 3.75e+02 ;
+            design:y 4.5e+02 ] ;
+    design:rotation 0 .
+
+<http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+    design:hasPosition [ design:x 1.25e+03 ;
+            design:y 4.5e+02 ] ;
+    design:rotation 0 .
+
+<http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+    design:hasPosition [ design:x 9e+02 ;
+            design:y 4.5e+02 ] ;
+    design:rotation 0 .
+
+<http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+    design:hasPosition [ design:x 7.25e+02 ;
+            design:y 4.5e+02 ] ;
+    design:rotation 0 .
+
+<http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+    design:hasPosition [ design:x 5.5e+02 ;
+            design:y 4.5e+02 ] ;
+    design:rotation 0 .
+
+<http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+    design:hasPosition [ design:x 1.075e+03 ;
+            design:y 4.5e+02 ] ;
+    design:rotation 0 .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> a <https://doc.realestatecore.io/4.0/#Level> ;
+    rdfs:label "Ground Floor"^^xsd:string ;
+    design:hasPosition [ design:x 7.25e+02 ;
+            design:y 1.75e+02 ] ;
+    design:rotation 0 ;
+    brick:hasLocation <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8>,
+        <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9>,
+        <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA>,
+        <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB>,
+        <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE>,
+        <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> a <https://doc.realestatecore.io/4.0/#Room> ;
+    rdfs:label "3"^^xsd:string ;
+    design:hasPosition [ design:x 7.25e+02 ;
+            design:y 3.5e+02 ] ;
+    design:rotation 0 ;
+    brick:isLocationOf <http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> a <https://doc.realestatecore.io/4.0/#Room> ;
+    rdfs:label "4"^^xsd:string ;
+    design:hasPosition [ design:x 9e+02 ;
+            design:y 3.5e+02 ] ;
+    design:rotation 0 ;
+    brick:isLocationOf <http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> a <https://doc.realestatecore.io/4.0/#Room> ;
+    rdfs:label "5"^^xsd:string ;
+    design:hasPosition [ design:x 1.075e+03 ;
+            design:y 3.5e+02 ] ;
+    design:rotation 0 ;
+    brick:isLocationOf <http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> a <https://doc.realestatecore.io/4.0/#Room> ;
+    rdfs:label "6"^^xsd:string ;
+    design:hasPosition [ design:x 1.25e+03 ;
+            design:y 3.5e+02 ] ;
+    design:rotation 0 ;
+    brick:isLocationOf <http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8> .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> a <https://doc.realestatecore.io/4.0/#Room> ;
+    rdfs:label "1"^^xsd:string ;
+    design:hasPosition [ design:x 3.75e+02 ;
+            design:y 3.5e+02 ] ;
+    design:rotation 0 ;
+    brick:isLocationOf <http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> .
+
+<file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> a <https://doc.realestatecore.io/4.0/#Room> ;
+    rdfs:label "2"^^xsd:string ;
+    design:hasPosition [ design:x 5.5e+02 ;
+            design:y 3.5e+02 ] ;
+    design:rotation 0 ;
+    brick:isLocationOf <http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> .
+
+<http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+    design:hasPosition [ design:x 9e+02 ;
+            design:y 5.75e+02 ] ;
+    design:rotation 90 ;
+    brick:feeds <http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> .
+
+<http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+    design:hasPosition [ design:x 3.75e+02 ;
+            design:y 5.75e+02 ] ;
+    design:rotation 90 ;
+    brick:feeds <http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> .
+
+<http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+    design:hasPosition [ design:x 5.5e+02 ;
+            design:y 5.75e+02 ] ;
+    design:rotation 90 ;
+    brick:feeds <http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> .
+
+<http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+    design:hasPosition [ design:x 1.075e+03 ;
+            design:y 5.75e+02 ] ;
+    design:rotation 90 ;
+    brick:feeds <http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> .
+
+<http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+    design:hasPosition [ design:x 7.25e+02 ;
+            design:y 5.75e+02 ] ;
+    design:rotation 90 ;
+    brick:feeds <http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> .
+
+<http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> a <https://brickschema.org/schema/1.1/Brick#Pump> ;
+    design:hasPosition [ design:x 2.5e+02 ;
+            design:y 7e+02 ] ;
+    design:rotation 0 ;
+    brick:feeds <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947>,
+        <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87>,
+        <http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8>,
+        <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5>,
+        <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59>,
+        <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
+
