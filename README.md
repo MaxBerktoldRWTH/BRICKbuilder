@@ -9,8 +9,7 @@ This application provides a graphical interface for designing building systems u
 - **Drag-and-Drop Interface**: Easily add entities to your design by dragging them from the entity browser to the canvas
 - **Properties Panel**: View and edit entity properties, labels, and positions
 
-
-![alt text](data/PNG/GUI.png "Title")
+![GUI](https://github.com/user-attachments/assets/080f8e7f-c9c7-4915-a8ca-73bdaef28d00)
 
 ### Semantic Relationships
 - **Visual Connections**: Create semantically meaningful connections between entities with proper Brick relationship types
