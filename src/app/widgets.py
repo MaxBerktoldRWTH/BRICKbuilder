@@ -489,17 +489,6 @@ class EntityBrowser(QTreeWidget):
 
         drag.setMimeData(mime_data)
 
-        # Create drag preview
-        renderer = QSvgRenderer(QByteArray(entity.svg_data.encode()))
-        pixmap = QPixmap(50, 50)
-        pixmap.fill(Qt.transparent)
-        painter = QPainter(pixmap)
-        renderer.render(painter)
-        painter.end()
-
-        drag.setPixmap(pixmap)
-        drag.setHotSpot(QPoint(25, 25))
-
         # Execute drag
         drag.exec_(Qt.CopyAction)
 
