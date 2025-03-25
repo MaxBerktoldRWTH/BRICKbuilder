@@ -9,6 +9,9 @@ This application provides a graphical interface for designing building systems u
 - **Drag-and-Drop Interface**: Easily add entities to your design by dragging them from the entity browser to the canvas
 - **Properties Panel**: View and edit entity properties, labels, and positions
 
+
+![alt text](data/PNG/GUI.png "Title")
+
 ### Semantic Relationships
 - **Visual Connections**: Create semantically meaningful connections between entities with proper Brick relationship types
 - **Smart Routing**: Use joints to create custom routing paths for connections
@@ -16,7 +19,7 @@ This application provides a graphical interface for designing building systems u
 
 ### Design Management
 - **Export to Turtle**: Save your designs as standard RDF Turtle (.ttl) files for use with other semantic tools
-- **Import from Turtle**: Load previously saved designs back into the application (Example file: `data/TTL/boptest_multizone.ttl`)
+- **Import from Turtle**: Load previously saved designs back into the application
 - **IFC Import**: Import building layouts directly from IFC files via drag-and-drop
 
 ## Keyboard Shortcuts
@@ -57,7 +60,6 @@ The application can import building layouts directly from IFC (Industry Foundati
 4. Once imported, you can add equipment, points, and other entities to the spaces
 
 This feature provides a quick way to create the spatial context for your building systems designs based on architectural models.
-To test this feature there is an example `boptest_multizone.ifc` file in the `data/IFC/` folder. 
 
 ## UI Components
 
