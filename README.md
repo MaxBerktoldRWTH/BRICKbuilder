@@ -10,7 +10,7 @@ This application provides a graphical interface for designing building systems u
 - **Properties Panel**: View and edit entity properties, labels, and positions
 
 
-![alt text](joss/GUI.png "Title")
+![alt text](joss/GUI.PNG "Title")
 
 ### Semantic Relationships
 - **Visual Connections**: Create semantically meaningful connections between entities with proper Brick relationship types
