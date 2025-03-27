@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "BRICKbuilder"
+version = "0.1.0"
+description = "A visual interface to create and manipulate BRICK graphs."
+authors = ["Max Berktold <max.berktold@eonerc.rwth-aachen.de>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+rdflib
+PyQt5
+ifcopenshell
