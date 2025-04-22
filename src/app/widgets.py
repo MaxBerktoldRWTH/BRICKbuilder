@@ -1,3 +1,4 @@
+import uuid
 import rdflib
 
 # PyQt imports
@@ -19,7 +20,7 @@ from src.model import EntityLibrary, Point
 from src.app.items import EntityItem, ConnectionItem, PortItem, JointItem
 from src.config import AppConfig
 from src.logging import Logger
-
+from src.app.dialogs import ExternalReferencesDialog
 
 # Ontology namespace definitions
 BRICK_RELATIONSHIPS = {
@@ -39,7 +40,6 @@ class PropertyPanel(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-
         self.current_selection = []
         self._setup_ui()
 
@@ -53,12 +53,14 @@ class PropertyPanel(QWidget):
     def _setup_ui(self):
         layout = QVBoxLayout(self)
 
-        # Entity properties form
-        self.entity_form = QFormLayout()
-
         # Selection count label
         self.selection_count_label = QLabel("")
         layout.addWidget(self.selection_count_label)
+
+        # --- Entity Form Group ---
+        self.entity_widget = QWidget() # Container for entity fields
+        self.entity_form = QFormLayout(self.entity_widget)
+        self.entity_form.setContentsMargins(0, 0, 0, 0) # Optional: remove padding
 
         # Type URI field
         self.type_uri_label = QLabel("")
@@ -83,11 +85,19 @@ class PropertyPanel(QWidget):
         self.rotation_label = QLabel("")
         self.entity_form.addRow(QLabel("<b>Rotation:</b>"), self.rotation_label)
 
-        # Add entity form to main layout
-        layout.addLayout(self.entity_form)
+        # --- External References Button (Added to the form layout) ---
+        self.manage_ext_refs_button = QPushButton("Manage External References")
+        self.manage_ext_refs_button.clicked.connect(self._open_external_references_dialog)
+        # Add the button spanning both columns in its own row
+        self.entity_form.addRow(self.manage_ext_refs_button)
+        self.manage_ext_refs_button.setVisible(False) # Initially hidden
 
-        # Relationship properties form
-        self.relationship_form = QFormLayout()
+        layout.addWidget(self.entity_widget) # Add the entity group widget
+
+        # --- Relationship Form Group ---
+        self.relationship_widget = QWidget() # Container for relationship fields
+        self.relationship_form = QFormLayout(self.relationship_widget)
+        self.relationship_form.setContentsMargins(0, 0, 0, 0) # Optional: remove padding
 
         # Relationship URI
         self.rel_instance_uri_label = QLabel("")
@@ -126,11 +136,11 @@ class PropertyPanel(QWidget):
         self.color_button.clicked.connect(self._choose_connection_color)
         self.relationship_form.addRow(QLabel("<b>Color:</b>"), self.color_button)
 
-        # Add relationship form to main layout
-        layout.addLayout(self.relationship_form)
+        layout.addWidget(self.relationship_widget) # Add the relationship group widget
 
-        # Hide relationship form initially
-        self._hide_relationship_form()
+        # Hide forms initially
+        self.relationship_widget.setVisible(False)
+        self.entity_widget.setVisible(False) # Also hide entity form initially
 
         # Add stretch to keep forms at top
         layout.addStretch(1)
@@ -141,258 +151,284 @@ class PropertyPanel(QWidget):
     def _update_entity_label(self):
         """Update the label of all selected entities."""
         new_label = self.label_edit.text()
+        # Prevent updates if multiple items have different labels initially
+        if self.label_edit.placeholderText() == "Multiple values...":
+             # Optionally clear placeholder on first edit or require explicit change
+             pass # Or maybe block signal if needed
+
         for item in self.current_selection:
             if isinstance(item, EntityItem):
                 item.label = new_label
 
+    # --- REVISED Show/Hide Logic ---
     def _hide_entity_form(self):
-        """Hide the entity property form fields."""
-        for i in range(self.entity_form.rowCount()):
-            self.entity_form.itemAt(i, QFormLayout.LabelRole).widget().hide()
-            self.entity_form.itemAt(i, QFormLayout.FieldRole).widget().hide()
+        """Hide the entity property form group."""
+        self.entity_widget.setVisible(False)
+        # Button is inside entity_widget, so it gets hidden too.
+        # Explicitly hiding it again ensures state consistency if called separately.
+        self.manage_ext_refs_button.setVisible(False)
 
     def _show_entity_form(self):
-        """Show the entity property form fields."""
-        for i in range(self.entity_form.rowCount()):
-            self.entity_form.itemAt(i, QFormLayout.LabelRole).widget().show()
-            self.entity_form.itemAt(i, QFormLayout.FieldRole).widget().show()
+        """Show the entity property form group."""
+        self.entity_widget.setVisible(True)
+        # Button visibility is handled separately in update_properties
 
     def _hide_relationship_form(self):
-        """Hide the relationship property form fields."""
-        for i in range(self.relationship_form.rowCount()):
-            self.relationship_form.itemAt(i, QFormLayout.LabelRole).widget().hide()
-            self.relationship_form.itemAt(i, QFormLayout.FieldRole).widget().hide()
+        """Hide the relationship property form group."""
+        self.relationship_widget.setVisible(False)
 
     def _show_relationship_form(self):
-        """Show the relationship property form fields."""
-        for i in range(self.relationship_form.rowCount()):
-            self.relationship_form.itemAt(i, QFormLayout.LabelRole).widget().show()
-            self.relationship_form.itemAt(i, QFormLayout.FieldRole).widget().show()
+        """Show the relationship property form group."""
+        self.relationship_widget.setVisible(True)
+    # --- END REVISED Show/Hide Logic ---
 
     def update_properties(self, items=None):
         """Update the properties panel with the selected items' information."""
-
-        # Store the new selection
         self.current_selection = items if items else []
 
         # Hide all forms initially
         self._hide_entity_form()
         self._hide_relationship_form()
+        # manage_ext_refs_button is hidden by _hide_entity_form
 
-        # If no selection, show the empty state
         if not self.current_selection:
             self.selection_count_label.setText("No items selected")
-            self.type_uri_label.setText("No item selected")
-            self.instance_uri_label.setText("No item selected")
-            self.position_label.setText("No item selected")
-            self.rotation_label.setText("No item selected")
-            self._show_entity_form()
+            # Show entity form in a disabled/empty state
+            self._show_entity_form() # Show the container
+            self.type_uri_label.setText("N/A")
+            self.instance_uri_label.setText("N/A")
+            self.label_edit.clear()
+            self.label_edit.setPlaceholderText("")
+            self.label_edit.setEnabled(False) # Disable editing
+            self.position_label.setText("N/A")
+            self.rotation_label.setText("N/A")
+            # Button remains hidden because it wasn't explicitly shown yet
             return
 
-        # Count types of selected items
         entity_count = sum(1 for item in self.current_selection if isinstance(item, EntityItem))
         connection_count = sum(1 for item in self.current_selection if isinstance(item, ConnectionItem))
 
-        # Update selection count label
         if len(self.current_selection) == 1:
             self.selection_count_label.setText("1 item selected")
         else:
             self.selection_count_label.setText(f"{len(self.current_selection)} items selected")
 
-        # Handle multiple selection
+        # Default button state for single/multi select before specific checks
+        self.manage_ext_refs_button.setVisible(False)
+
         if len(self.current_selection) > 1:
             self._handle_multiple_selection(entity_count, connection_count)
+            # Button remains hidden (set above)
             return
 
         # Handle single item selection
         item = self.current_item
-
         if isinstance(item, EntityItem):
-            self._update_entity_properties(item)
+            self._update_entity_properties(item) # This calls _show_entity_form
+            # Now, specifically manage the button visibility
+            if isinstance(item.entity, Point):
+                self.manage_ext_refs_button.setVisible(True)
+            # else: button remains hidden (set above)
         elif isinstance(item, ConnectionItem):
-            self._update_connection_properties(item)
+            self._update_connection_properties(item) # This calls _show_relationship_form
+            # Button remains hidden (set above)
 
     def _handle_multiple_selection(self, entity_count, connection_count):
         """Handle display and editing for multiple selected items."""
+        # Button is already hidden (set in update_properties)
+
         if entity_count > 0 and connection_count == 0:
-            # All entities selected
             self._handle_multiple_entities(entity_count)
         elif entity_count == 0 and connection_count > 0:
-            # All connections selected
             self._handle_multiple_connections(connection_count)
         else:
-            # Mixed selection
             self._handle_mixed_selection(entity_count, connection_count)
 
     def _handle_multiple_entities(self, count):
         """Handle when multiple entities are selected."""
+        self._show_entity_form() # Show the entity form container
         self.type_uri_label.setText(f"{count} entities selected")
         self.instance_uri_label.setText("Multiple instances")
         self.position_label.setText("Various positions")
         self.rotation_label.setText("Various rotations")
 
-        # Check if all selected entities have the same label
         entities = [item for item in self.current_selection if isinstance(item, EntityItem)]
         labels = set(entity.label for entity in entities)
 
+        self.label_edit.setEnabled(True) # Allow editing label even for multiple
         if len(labels) == 1:
-            # All entities have the same label
             self.label_edit.blockSignals(True)
             self.label_edit.setText(next(iter(labels)))
             self.label_edit.setPlaceholderText("")
             self.label_edit.blockSignals(False)
         else:
-            # Different labels
             self.label_edit.blockSignals(True)
             self.label_edit.clear()
             self.label_edit.setPlaceholderText("Multiple values...")
             self.label_edit.blockSignals(False)
-
-        self._show_entity_form()
+        # Button remains hidden
 
     def _handle_multiple_connections(self, count):
         """Handle when multiple connections are selected."""
+        self._show_relationship_form() # Show relationship form
         self.rel_instance_uri_label.setText(f"{count} connections selected")
         self.rel_type_uri_label.setText("Multiple connections")
         self.source_entity_label.setText("Various sources")
         self.target_entity_label.setText("Various targets")
 
-        # Check if all connections have the same relationship type
         connections = [item for item in self.current_selection if isinstance(item, ConnectionItem)]
         rel_types = set(conn.relationship_type for conn in connections)
 
         if len(rel_types) == 1:
-            # All connections have the same type
             rel_type = next(iter(rel_types))
+            found = False
             for i in range(self.rel_type_combo.count()):
                 if self.rel_type_combo.itemData(i) == rel_type:
                     self.rel_type_combo.blockSignals(True)
                     self.rel_type_combo.setCurrentIndex(i)
                     self.rel_type_combo.blockSignals(False)
+                    found = True
                     break
+            if not found: # Handle case where saved type isn't in dropdown
+                 self.rel_type_combo.blockSignals(True)
+                 self.rel_type_combo.setCurrentIndex(-1)
+                 self.rel_type_combo.blockSignals(False)
         else:
             # Different types
             self.rel_type_combo.blockSignals(True)
-            self.rel_type_combo.setCurrentIndex(-1)
+            self.rel_type_combo.setCurrentIndex(-1) # Indicate multiple types
             self.rel_type_combo.blockSignals(False)
-
-        self._show_relationship_form()
+        # Button remains hidden
 
     def _handle_mixed_selection(self, entity_count, connection_count):
         """Handle when both entities and connections are selected."""
-        self.type_uri_label.setText(f"{entity_count} entities and {connection_count} connections")
+        self._show_entity_form() # Show entity form (mostly disabled)
+        self.type_uri_label.setText(f"{entity_count} entities, {connection_count} connections")
         self.instance_uri_label.setText("Multiple instances")
         self.position_label.setText("Various positions")
         self.rotation_label.setText("Various rotations")
 
-        # Disable label editing for mixed selection
         self.label_edit.blockSignals(True)
         self.label_edit.clear()
         self.label_edit.setPlaceholderText("Cannot edit mixed selection")
         self.label_edit.setEnabled(False)
         self.label_edit.blockSignals(False)
-
-        self._show_entity_form()
+        # Button remains hidden
 
     def _update_entity_properties(self, entity_item):
         """Update the panel with entity properties."""
+        self._show_entity_form() # Ensure container is visible
         self.type_uri_label.setText(str(entity_item.entity.uri_ref))
         self.instance_uri_label.setText(str(entity_item.instance_uri))
 
-        # Update label field without triggering signals
         self.label_edit.blockSignals(True)
         self.label_edit.setText(entity_item.label)
-        self.label_edit.setEnabled(True)
+        self.label_edit.setEnabled(True) # Enable label editing
         self.label_edit.setPlaceholderText("")
         self.label_edit.blockSignals(False)
 
-        # Position and rotation
         pos = entity_item.pos()
-        self.position_label.setText(f"({pos.x()}, {pos.y()})")
+        # Use .1f for one decimal place, or adjust as needed
+        self.position_label.setText(f"({pos.x():.1f}, {pos.y():.1f})")
+        # Use correct degree symbol if possible, otherwise 'deg'
         self.rotation_label.setText(f"{entity_item.rotation_angle}°")
 
-        # Show entity form
-        self._show_entity_form()
+        # Button visibility is handled in update_properties after this call
 
     def _update_connection_properties(self, connection_item):
         """Update the panel with connection properties."""
+        self._show_relationship_form() # Ensure container is visible
         self.rel_instance_uri_label.setText(str(connection_item.instance_uri))
         self.rel_type_uri_label.setText(str(connection_item.relationship_type))
 
-        # Source entity
         source_uri = connection_item.get_source_entity_uri()
         self.source_entity_label.setText(str(source_uri) if source_uri else "Unknown source")
 
-        # Target entity
         target_uri = connection_item.get_target_entity_uri()
         self.target_entity_label.setText(str(target_uri) if target_uri else "Unknown target")
 
         # Set relationship type in combo box
+        found = False
         for i in range(self.rel_type_combo.count()):
             if self.rel_type_combo.itemData(i) == connection_item.relationship_type:
                 self.rel_type_combo.blockSignals(True)
                 self.rel_type_combo.setCurrentIndex(i)
                 self.rel_type_combo.blockSignals(False)
+                found = True
                 break
+        if not found: # Clear combo if type not found
+            self.rel_type_combo.blockSignals(True)
+            self.rel_type_combo.setCurrentIndex(-1)
+            self.rel_type_combo.blockSignals(False)
+
 
         # Set color button background
         current_color = connection_item.pen().color()
         self.color_button.setStyleSheet(f"background-color: {current_color.name()}")
 
-        # Show relationship form
-        self._show_relationship_form()
+        # Button visibility is handled in update_properties
 
     def _update_relationship_type(self, index):
         """Update the relationship type for all selected connections."""
-        if index < 0:
+        if index < 0 or not self.current_selection: # Check index and selection
             return
 
         rel_type = self.rel_type_combo.itemData(index)
+        if not rel_type: # Ensure data is valid
+             return
 
         for item in self.current_selection:
             if isinstance(item, ConnectionItem):
                 item.set_relationship_type(rel_type)
+        # Update the display for the current item if it's a connection
+        if isinstance(self.current_item, ConnectionItem):
+             self.rel_type_uri_label.setText(str(rel_type))
+
 
     def _choose_connection_color(self):
         """Open color dialog to choose connection color for all selected connections."""
-        # Filter selected connections
         connections = [item for item in self.current_selection if isinstance(item, ConnectionItem)]
         if not connections:
             return
 
-        # Use color from first connection
         current_color = connections[0].pen().color()
-
-        # Open color dialog
         color = QColorDialog.getColor(current_color, self, "Choose Connection Color")
 
         if color.isValid():
-            # Apply to all selected connections
             for item in connections:
-                # Create new pen with selected color
                 item_pen = item.pen()
                 new_pen = QPen(item_pen)
                 new_pen.setColor(color)
-
-                # Apply to connection
                 item.setPen(new_pen)
-
-                # Apply to connection arrows
+                # Update arrows immediately
                 for arrow in item.arrows:
                     arrow.setPen(new_pen)
                     arrow.setBrush(QBrush(color))
 
-            # Update button color
             self.color_button.setStyleSheet(f"background-color: {color.name()}")
 
     def _reverse_connection_direction(self):
         """Reverse the direction of all selected connections."""
+        connections_reversed = False
         for item in self.current_selection:
             if isinstance(item, ConnectionItem):
                 item.reverse()
+                connections_reversed = True
 
-        # Update properties to reflect changes
-        self.update_properties(self.current_selection)
+        # Update properties only if something was actually reversed
+        if connections_reversed:
+            self.update_properties(self.current_selection)
+
+    def _open_external_references_dialog(self):
+        """Open the dialog to manage external references for the selected Point."""
+        # Check should be reliable now due to button visibility logic
+        if len(self.current_selection) == 1 and isinstance(self.current_item, EntityItem) and isinstance(self.current_item.entity, Point):
+            point_item = self.current_item
+            dialog = ExternalReferencesDialog(point_item, self)
+            dialog.exec_() # Show modally
+        else:
+             # Fallback warning
+             QMessageBox.warning(self, "Selection Error", "Please select a single Point entity to manage references.")
 
 
 class EntityBrowser(QTreeWidget):
@@ -521,13 +557,14 @@ class Canvas(QGraphicsView):
 
         # Connection creation state
         self.connection_in_progress = False
-        self.temp_connection = None
+        self.temp_connection: ConnectionItem = None
         self.source_port = None
 
         # Panning attributes
         self.is_panning = False
         self.last_pan_point = None
         self.activated_panning = False
+        self.hovered_port = None
 
         # Add state tracking for points visibility
         self.points_visible = True
@@ -655,6 +692,7 @@ class Canvas(QGraphicsView):
 
     def _start_connection_creation(self, port_item, event):
         """Start creating a new connection from a port."""
+
         self.connection_in_progress = True
         self.source_port = port_item
 
@@ -670,48 +708,41 @@ class Canvas(QGraphicsView):
 
     def _finish_connection_creation(self, event):
         """Finalize connection creation on mouse release."""
+        target_port = None
         # Get item under cursor
         item = self.itemAt(event.pos())
 
         # Check if target is a valid port
         if isinstance(item, PortItem) and item != self.source_port:
+            target_port = item
+
+        if self.hovered_port:
+            # Reset the visual cue regardless of success/failure
+            # self.hovered_port.setBrush(self.DEFAULT_PORT_BRUSH) # Old way
+            self.hovered_port.setHovered(False) # <--- Use new method
+            self.hovered_port = None
+
+        if target_port:  # Check if we found a valid target port earlier
             # Finalize connection
-            self.temp_connection.set_target_port(item)
+            self.temp_connection.set_target_port(target_port)  # Use the stored target_port
 
-            # Automatically set relationship type if Point entity is involved
+            # Example:
             source_entity = self.source_port.entity_item
-            target_entity = item.entity_item
-
-            # Check if either endpoint is a Point
+            target_entity = target_port.entity_item
             source_is_point = isinstance(source_entity.entity, Point)
             target_is_point = isinstance(target_entity.entity, Point)
 
-            if source_is_point or target_is_point:
-                # Set relationship type based on direction
-                if source_is_point:
-                    # Point -> Equipment: isPointOf relationship
-                    self.temp_connection.set_relationship_type(rdflib.BRICK.isPointOf)
-                else:
-                    # Equipment -> Point: hasPoint relationship
-                    self.temp_connection.set_relationship_type(rdflib.BRICK.hasPoint)
+            if target_is_point:
+                self.temp_connection.relationship_type = BRICK_RELATIONSHIPS[""]
 
-                # Update status with relationship
-                rel_name = next(name for name, uri in BRICK_RELATIONSHIPS.items()
-                                if uri == self.temp_connection.relationship_type)
-                self.show_message(f"Connection created with '{rel_name}' relationship")
-            else:
-                # Default relationship handling
-                self.show_message("Connection created")
-
-            # Select the connection
+            self.show_message("Connection created")  # Or more specific message
             self.scene.clearSelection()
             self.temp_connection.setSelected(True)
 
-            # Connection will be selected, so property panel will update automatically
-
         else:
             # Cancel connection
-            self.scene.removeItem(self.temp_connection)
+            if self.temp_connection:  # Check if temp_connection exists before removing
+                self.scene.removeItem(self.temp_connection)
             self.show_message("Connection canceled")
 
         # Reset state
@@ -736,7 +767,7 @@ class Canvas(QGraphicsView):
         if event.button() == Qt.MiddleButton:
             self.is_panning = True
             self.last_pan_point = event.pos()
-            # Change cursor to indicate active panning
+
             self.setCursor(Qt.ClosedHandCursor)
             event.accept()
 
@@ -744,15 +775,35 @@ class Canvas(QGraphicsView):
         super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        """Handle mouse move events for connection creation and dragging."""
+        """Handle mouse move events for connection creation, dragging, and port hovering."""
+
+        previously_hovered = self.hovered_port
+        current_hover_target = None
+
+        if self.connection_in_progress and self.temp_connection:
+            item_under_cursor = self.itemAt(event.pos())
+            if isinstance(item_under_cursor, PortItem) and item_under_cursor != self.source_port:
+                current_hover_target = item_under_cursor
+
+            if previously_hovered != current_hover_target:
+                # Reset the previously hovered port (if any)
+                if previously_hovered:
+                    # previously_hovered.setBrush(self.DEFAULT_PORT_BRUSH) # Old way
+                    previously_hovered.setHovered(False)
+
+                # Highlight the new target port (if any)
+                if current_hover_target:
+                    # current_hover_target.setBrush(self.HOVER_PORT_BRUSH) # Old way
+                    current_hover_target.setHovered(True)
+
+                self.hovered_port = current_hover_target
+
         # Update temporary connection during creation
         if self.connection_in_progress and self.temp_connection:
             mouse_scene_pos = self.mapToScene(event.pos())
             self.temp_connection.set_current_end_pos(mouse_scene_pos)
-            event.accept()
-            return
 
-        # Handle panning movement
+        # Handle panning movement (keep this logic)
         if self.is_panning and self.last_pan_point:
             # Calculate delta movement
             delta = event.pos() - self.last_pan_point
@@ -765,9 +816,14 @@ class Canvas(QGraphicsView):
                 self.verticalScrollBar().value() - delta.y())
 
             event.accept()
-            return
+            return  # Panning handled, return here
 
-        # For other moves, use default behavior
+        # Accept event if we updated the temp connection
+        if self.connection_in_progress:
+            event.accept()
+            return  # Temp connection update handled, return here
+
+        # For other moves (like item dragging), use default behavior
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
@@ -778,11 +834,10 @@ class Canvas(QGraphicsView):
             return
 
         # Pan on middle mouse button
-        if event.button() == Qt.MiddleButton:
+        if event.button() == Qt.MiddleButton and self.is_panning:  # Added check for is_panning
             self.is_panning = False
-
-            # Restore cursor to panning ready state since space is still pressed
-            self.setCursor(Qt.ArrowCursor)
+            self.last_pan_point = None  # Reset last pan point
+            self.setCursor(Qt.ArrowCursor)  # Restore cursor
             event.accept()
             return
 
@@ -1138,7 +1193,6 @@ class Canvas(QGraphicsView):
 
             # Add joints
             for joint_pos in conn_data['joints']:
-
                 # Apply offset to joint position
                 new_pos = QPointF(joint_pos.x() + offset_x, joint_pos.y() + offset_y)
                 joint = connection.add_joint_at_point(new_pos)
@@ -1236,9 +1290,12 @@ class Canvas(QGraphicsView):
         design_ns = AppConfig.design_ns
         g.bind("design", design_ns)
         g.bind("brick", rdflib.BRICK)
+        g.bind("ref", AppConfig.ref_ns)
+        g.bind("bacnet", AppConfig.bacnet_ns)
 
         # Store all entities
         for item in self.scene.items():
+
             # Process EntityItems
             if isinstance(item, EntityItem):
                 # Add type triple
@@ -1257,7 +1314,34 @@ class Canvas(QGraphicsView):
 
                 # Add label if it exists
                 if item.label:
-                    g.add((item.instance_uri, rdflib.RDFS.label, rdflib.Literal(item.label, datatype=rdflib.XSD.string)))
+                    g.add(
+                        (item.instance_uri, rdflib.RDFS.label, rdflib.Literal(item.label, datatype=rdflib.XSD.string)))
+
+                if isinstance(item.entity, Point) and item.external_references:
+                    for ref_data in item.external_references:
+                        ref_bnode = rdflib.BNode() # Blank node for the reference details
+                        g.add((item.instance_uri, AppConfig.ref_ns.hasExternalReference, ref_bnode))
+
+                        ref_type = ref_data.get('type')
+                        if ref_type == "BACnet":
+                            g.add((ref_bnode, rdflib.RDF.type, AppConfig.ref_ns.BACnetReference))
+                            option = ref_data.get('option', 1)
+                            if option == 1:
+                                if 'object-identifier' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['object-identifier'], rdflib.Literal(ref_data['object-identifier'])))
+                                if 'object-name' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['object-name'], rdflib.Literal(ref_data['object-name'])))
+                                if 'object-type' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['object-type'], rdflib.Literal(ref_data['object-type']))) # Maybe map to BACnet type URIs later?
+                                if 'description' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns.description, rdflib.Literal(ref_data['description'])))
+                                if 'read-property' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['read-property'], rdflib.Literal(ref_data['read-property'])))
+                                if 'objectOf' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
+                            elif option == 2:
+                                if 'BACnetURI' in ref_data: g.add((ref_bnode, AppConfig.brick_ns.BACnetURI, rdflib.Literal(ref_data['BACnetURI'])))
+                                if 'objectOf' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
+
+                        elif ref_type == "Timeseries":
+                            g.add((ref_bnode, rdflib.RDF.type, AppConfig.ref_ns.TimeseriesReference))
+                            if 'timeseriesId' in ref_data: g.add((ref_bnode, AppConfig.ref_ns.hasTimeseriesId, rdflib.Literal(ref_data['timeseriesId'])))
+                            if 'storedAt' in ref_data: g.add((ref_bnode, AppConfig.ref_ns.storedAt, rdflib.URIRef(ref_data['storedAt']))) # Store as URI
+
 
         # Store all connections
         for item in self.scene.items():
@@ -1275,16 +1359,20 @@ class Canvas(QGraphicsView):
                     g.add((item.instance_uri, rdflib.RDF.type, rdflib.URIRef(design_ns.Connection)))
                     g.add((item.instance_uri, rdflib.URIRef(design_ns + "sourceEntity"), source_uri))
                     g.add((item.instance_uri, rdflib.URIRef(design_ns + "targetEntity"), target_uri))
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "relationshipType"), rdflib.Literal(str(item.relationship_type))))
+                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "relationshipType"),
+                           rdflib.Literal(str(item.relationship_type))))
 
                     # Store connection color
                     color = item.pen().color()
                     color_node = rdflib.BNode()
                     g.add((item.instance_uri, rdflib.URIRef(design_ns + "color"), color_node))
-                    g.add((color_node, rdflib.URIRef(design_ns + "red"), rdflib.Literal(color.red(), datatype=rdflib.XSD.integer)))
+                    g.add((color_node, rdflib.URIRef(design_ns + "red"),
+                           rdflib.Literal(color.red(), datatype=rdflib.XSD.integer)))
                     g.add(
-                        (color_node, rdflib.URIRef(design_ns + "green"), rdflib.Literal(color.green(), datatype=rdflib.XSD.integer)))
-                    g.add((color_node, rdflib.URIRef(design_ns + "blue"), rdflib.Literal(color.blue(), datatype=rdflib.XSD.integer)))
+                        (color_node, rdflib.URIRef(design_ns + "green"),
+                         rdflib.Literal(color.green(), datatype=rdflib.XSD.integer)))
+                    g.add((color_node, rdflib.URIRef(design_ns + "blue"),
+                           rdflib.Literal(color.blue(), datatype=rdflib.XSD.integer)))
 
                     # Store line style
                     pen_style = item.pen().style()
@@ -1298,14 +1386,15 @@ class Canvas(QGraphicsView):
 
                     # Store joints - using explicit URIRefs to avoid the error
                     for i, joint in enumerate(item.joints):
-
                         joint_node = rdflib.BNode()
                         g.add((item.instance_uri, design_ns.hasJoint, joint_node))
                         g.add((joint_node, design_ns.jointIndex, rdflib.Literal(i, datatype=rdflib.XSD.integer)))
 
                         joint_pos = joint.scenePos()
-                        g.add((joint_node, design_ns.x, rdflib.Literal(float(joint_pos.x()), datatype=rdflib.XSD.float)))
-                        g.add((joint_node, design_ns.y, rdflib.Literal(float(joint_pos.y()), datatype=rdflib.XSD.float)))
+                        g.add(
+                            (joint_node, design_ns.x, rdflib.Literal(float(joint_pos.x()), datatype=rdflib.XSD.float)))
+                        g.add(
+                            (joint_node, design_ns.y, rdflib.Literal(float(joint_pos.y()), datatype=rdflib.XSD.float)))
 
         # Serialize to turtle format and save
         g.serialize(destination=file_path, format="turtle")
@@ -1380,6 +1469,90 @@ class Canvas(QGraphicsView):
             label = g.value(entity_uri, rdflib.RDFS.label)
             if label:
                 entity_item.label = str(label)
+
+        ref_query = """
+                   SELECT ?point_uri ?ref_node ?ref_type ?pred ?obj
+                   WHERE {
+                       ?point_uri ref:hasExternalReference ?ref_node .
+                       ?ref_node rdf:type ?ref_type .
+                       ?ref_node ?pred ?obj .
+                       FILTER (?ref_type IN (ref:BACnetReference, ref:TimeseriesReference))
+                   } ORDER BY ?point_uri ?ref_node
+                """
+        qres_refs = g.query(ref_query, initNs={"ref": AppConfig.ref_ns, "rdf": rdflib.RDF})
+
+        current_point_uri = None
+        current_ref_node = None
+        current_ref_data = {}
+
+        for row in qres_refs:
+            point_uri, ref_node, ref_type, pred, obj = row
+
+            # Find the corresponding EntityItem
+            entity_item = loaded_entities.get(str(point_uri))
+            if not entity_item or not isinstance(entity_item.entity, Point):
+                continue  # Skip if point not loaded or not a Point type
+
+            # Check if we are starting a new reference node
+            if ref_node != current_ref_node:
+                # Save the previous reference data if it exists
+                if current_ref_node and current_ref_data:
+                    current_ref_data['id'] = str(uuid.uuid4())  # Add internal ID on load
+                    entity_item_prev = loaded_entities.get(str(current_point_uri))
+                    if entity_item_prev:
+                        entity_item_prev.external_references.append(current_ref_data)
+
+                # Start new reference data
+                current_point_uri = point_uri
+                current_ref_node = ref_node
+                current_ref_data = {}
+                if ref_type == AppConfig.ref_ns.BACnetReference:
+                    current_ref_data['type'] = 'BACnet'
+                elif ref_type == AppConfig.ref_ns.TimeseriesReference:
+                    current_ref_data['type'] = 'Timeseries'
+                else:
+                    current_ref_data['type'] = 'Unknown'  # Should not happen based on query filter
+
+            # Add property to current reference data (skip rdf:type)
+            if pred != rdflib.RDF.type:
+                prop_name = pred.split('#')[-1].split('/')[-1]  # Get local name
+                # Convert specific properties based on schema
+                if pred == AppConfig.bacnet_ns['object-identifier']:
+                    current_ref_data['object-identifier'] = str(obj)
+                elif pred == AppConfig.bacnet_ns['object-name']:
+                    current_ref_data['object-name'] = str(obj)
+                elif pred == AppConfig.bacnet_ns['object-type']:
+                    current_ref_data['object-type'] = str(obj)
+                elif pred == AppConfig.bacnet_ns.description:
+                    current_ref_data['description'] = str(obj)
+                elif pred == AppConfig.bacnet_ns['read-property']:
+                    current_ref_data['read-property'] = str(obj)
+                elif pred == AppConfig.brick_ns.BACnetURI:
+                    current_ref_data['BACnetURI'] = str(obj)
+                elif pred == AppConfig.bacnet_ns.objectOf:
+                    current_ref_data['objectOf'] = str(obj)  # Store as string URI
+                elif pred == AppConfig.ref_ns.hasTimeseriesId:
+                    current_ref_data['timeseriesId'] = str(obj)
+                elif pred == AppConfig.ref_ns.storedAt:
+                    current_ref_data['storedAt'] = str(obj)  # Store as string URI
+                # Add more specific conversions if needed (e.g., boolean/numeric literals)
+                else:
+                    current_ref_data[prop_name] = str(obj)  # Default to string
+
+            # Determine BACnet option based on properties found
+            if current_ref_data.get('type') == 'BACnet':
+                if 'BACnetURI' in current_ref_data:
+                    current_ref_data['option'] = 2
+                elif 'object-identifier' in current_ref_data:
+                    current_ref_data['option'] = 1
+                # else: option remains undetermined until more props are read
+
+        # Add the last processed reference
+        if current_ref_node and current_ref_data:
+            current_ref_data['id'] = str(uuid.uuid4())
+            entity_item_last = loaded_entities.get(str(current_point_uri))
+            if entity_item_last and isinstance(entity_item_last.entity, Point):
+                entity_item_last.external_references.append(current_ref_data)
 
         # Track relationships that have been visually represented
         processed_relationships = set()

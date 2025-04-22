@@ -1,3 +1,5 @@
+import rdflib
+
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QAction, QToolBar,
     QDockWidget, QMenu, QMessageBox, QToolButton,
@@ -13,6 +15,7 @@ from src.app.widgets import (
 )
 
 from src.ifc import extract_topology
+from src.app.items import EntityItem, ConnectionItem
 
 
 class DiagramApplication(QMainWindow):
@@ -232,39 +235,104 @@ class DiagramApplication(QMainWindow):
                 print(f"Import error: {e}")
 
     def dragEnterEvent(self, event: QDragEnterEvent) -> None:
+        print("dragEnterEvent triggered")
         if event.mimeData().hasUrls():
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
-                if file_path.lower().endswith('.ifc'):
+                print(f"Drag enter with file: {file_path}")
+                if file_path.lower().endswith('.ttl'):
+                    print(f"Accepting .ttl file: {file_path}")
                     event.acceptProposedAction()
                     return
+        print("Ignoring drag enter event")
         event.ignore()
 
     def dragMoveEvent(self, event: QDragMoveEvent) -> None:
         if event.mimeData().hasUrls():
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
-                if file_path.lower().endswith('.ifc'):
+                if file_path.lower().endswith('.ttl'):
                     event.acceptProposedAction()
                     return
         event.ignore()
 
     def dropEvent(self, event: QDropEvent) -> None:
-
+        print("dropEvent triggered")
         if event.mimeData().hasUrls():
-            ifc_files = []
+            ttl_files = []
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
-                if file_path.lower().endswith('.ifc'):
-                    ifc_files.append(file_path)
+                print(f"Drop file: {file_path}")
+                if file_path.lower().endswith('.ttl'):
+                    ttl_files.append(file_path)
 
-            if len(ifc_files) != 1:
-                raise ValueError(f"Please load only one IFC file at a time. Got {len(ifc_files)} files.")
+            if ttl_files:
+                print(f"Processing {len(ttl_files)} TTL files")
+                # Process ttl files (import without clearing)
+                for ttl_file in ttl_files:
+                    try:
+                        print(f"Importing TTL file: {ttl_file}")
+                        # Load the TTL file directly without URI replacement
+                        # This simpler approach may help identify if the issue is in the complex URI handling
+                        self.canvas.load_from_turtle(ttl_file)
+                        self.statusBar().showMessage(f"Imported {ttl_file}")
+                        print(f"Successfully imported {ttl_file}")
+                    except Exception as e:
+                        error_msg = f"Error importing {ttl_file}: {str(e)}"
+                        print(error_msg)
+                        QMessageBox.critical(self, "Import Error", error_msg)
 
-            graph = extract_topology(ifc_files[0])
+                event.acceptProposedAction()
+                return
+        print("Ignoring drop event")
+        event.ignore()
 
-            print(f'Extracted graph with {len(graph)} triples from {ifc_files[0]}')
+    def _collect_existing_uris(self):
+        """Collect all existing instance URIs from canvas items."""
 
-            self.canvas.import_from_graph(graph)
+        existing_uris = set()
 
-            event.acceptProposedAction()
+        for item in self.canvas.scene.items():
+            if isinstance(item, EntityItem):
+                existing_uris.add(str(item.instance_uri))
+            elif isinstance(item, ConnectionItem):
+                existing_uris.add(str(item.instance_uri))
+
+        return existing_uris
+
+    def _replace_instance_uris(self, graph, existing_uris):
+        """Replace instance URIs in the graph to avoid conflicts with existing ones."""
+        import uuid
+        from src.config import AppConfig
+
+        # Create a new graph to hold the updated triples
+        new_graph = rdflib.Graph()
+
+        # Create a mapping of old URIs to new URIs
+        uri_mapping = {}
+
+        # First pass: Collect all URIs that need to be replaced
+        for subj, pred, obj in graph:
+            if isinstance(subj, rdflib.URIRef) and str(subj).startswith(str(AppConfig.building_ns)):
+                if str(subj) in existing_uris and str(subj) not in uri_mapping:
+                    uri_mapping[str(subj)] = str(AppConfig.building_ns[str(uuid.uuid4())])
+
+            if isinstance(obj, rdflib.URIRef) and str(obj).startswith(str(AppConfig.building_ns)):
+                if str(obj) in existing_uris and str(obj) not in uri_mapping:
+                    uri_mapping[str(obj)] = str(AppConfig.building_ns[str(uuid.uuid4())])
+
+        # Second pass: Add triples with replaced URIs
+        for subj, pred, obj in graph:
+            new_subj = rdflib.URIRef(uri_mapping.get(str(subj), str(subj)))
+            new_obj = obj
+
+            if isinstance(obj, rdflib.URIRef):
+                new_obj = rdflib.URIRef(uri_mapping.get(str(obj), str(obj)))
+
+            new_graph.add((new_subj, pred, new_obj))
+
+        # Copy over namespace bindings
+        for prefix, namespace in graph.namespaces():
+            new_graph.bind(prefix, namespace)
+
+        return new_graph

@@ -11,8 +11,11 @@ class AppConfig:
     frame_color = Qt.black
     frame_width = 2
 
+    brick_ns = rdflib.Namespace("https://brickschema.org/schema/Brick#")
+    ref_ns = rdflib.Namespace("https://brickschema.org/schema/Brick/ref#")
+    bacnet_ns = rdflib.Namespace("http://data.ashrae.org/bacnet/2020#")
+
     building_ns = rdflib.Namespace("http://example.org/building/#")
-    # design_ns = rdflib.Namespace("http://example.org/design/#")
     design_ns = rdflib.Namespace("http://example.org/design#")
 
     @classmethod

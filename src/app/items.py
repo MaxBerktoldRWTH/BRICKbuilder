@@ -22,6 +22,7 @@ class EntityItem(QGraphicsSvgItem):
         # Generate a unique instance URI
         self.instance_uri = rdflib.URIRef(f"http://example.org/building/instances/{uuid.uuid4()}")
         self.label = ""
+        self.external_references: list[dict] = []
 
         # Create SVG renderer
         self.renderer = QSvgRenderer(QByteArray(self.entity.svg_data.encode()))
@@ -110,8 +111,16 @@ class EntityItem(QGraphicsSvgItem):
 class PortItem(QGraphicsEllipseItem):
     """Connection port attached to an entity that allows creating connections."""
 
+    NORMAL_RADIUS = 4
+    HOVER_RADIUS = 6
+
+    DEFAULT_BRUSH = QBrush(Qt.gray)
+    HOVER_BRUSH = QBrush(Qt.darkGray)
+
     def __init__(self, parent=None):
         super().__init__(-4, -4, 8, 8, parent)
+
+        self.setAcceptHoverEvents(True)
 
         self.setFlag(QGraphicsItem.ItemIsSelectable, False)
         self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges, True)
@@ -123,6 +132,34 @@ class PortItem(QGraphicsEllipseItem):
         self.connections = []
         self.temp_connection = None
         self.entity_item = parent
+
+        self._is_hovered = False
+
+    def hoverEnterEvent(self, event):
+        self.setHovered(True)
+        super().hoverEnterEvent(event)
+
+    def hoverLeaveEvent(self, event):
+        self.setHovered(False)
+        super().hoverLeaveEvent(event)
+
+    def setHovered(self, hovered: bool):
+        """Set the visual state of the port based on hover status."""
+        if self._is_hovered == hovered:
+            return  # No change needed
+
+        self._is_hovered = hovered
+        if hovered:
+            radius = self.HOVER_RADIUS
+            self.setBrush(self.HOVER_BRUSH)  # Use hover brush
+            self.setZValue(3)  # Bring hovered port slightly more forward if needed
+        else:
+            radius = self.NORMAL_RADIUS
+            self.setBrush(self.DEFAULT_BRUSH)  # Use default brush
+            self.setZValue(2)  # Reset Z value
+
+        # Update the bounding rectangle to change size
+        self.setRect(-radius, -radius, 2 * radius, 2 * radius)
 
     def scenePos(self):
         """Get the global scene position of the port."""
