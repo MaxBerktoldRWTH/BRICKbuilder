@@ -1422,14 +1422,20 @@ class Canvas(QGraphicsView):
         self.import_from_graph(g=g)
 
     def import_from_graph(self, g: rdflib.Graph):
+        print(f"Starting import_from_graph with {len(g)} triples")
 
         # Define design namespace explicitly as a string prefix
         design_ns = AppConfig.design_ns
+        print(f"Using design namespace: {design_ns}")
 
         # Dictionary to keep track of loaded entities by URI
         loaded_entities = {}
 
         # First pass: Load all entities
+        print("First pass: Loading entities...")
+        entity_count = 0
+        skipped_count = 0
+
         for subject, predicate, obj in g.triples((None, rdflib.RDF.type, None)):
             # Skip connections - we'll handle them in the second pass
             if obj == design_ns.Connection:
@@ -1437,9 +1443,9 @@ class Canvas(QGraphicsView):
 
             # Check if it's an entity type from our library
             try:
-
                 # Create a new entity item
                 entity_item = EntityItem(obj)
+                print(f"Creating entity of type {obj}")
 
                 # Set the instance URI to match the saved one
                 entity_item.instance_uri = subject
@@ -1449,34 +1455,43 @@ class Canvas(QGraphicsView):
 
                 # Store in loaded entities dictionary
                 loaded_entities[str(subject)] = entity_item
+                entity_count += 1
 
             except AttributeError as e:
                 # Not an entity in our library, skip it
                 self.logger.warning(f"Skipping entity {obj} because {e}")
+                print(f"Skipping entity {obj} because {e}")
+                skipped_count += 1
                 continue
 
-        # Set entity properties
-        for entity_uri_str, entity_item in loaded_entities.items():
+        print(f"Loaded {entity_count} entities, skipped {skipped_count} entities")
 
+        # Set entity properties
+        print("Setting entity properties...")
+        for entity_uri_str, entity_item in loaded_entities.items():
+            print(f"Setting properties for entity: {entity_uri_str}")
             entity_uri = rdflib.URIRef(entity_uri_str)
 
             # Set position
             for pos_node in g.objects(subject=entity_uri, predicate=design_ns.hasPosition):
                 x = float(g.value(subject=pos_node, predicate=design_ns.x, default=0))
                 y = float(g.value(subject=pos_node, predicate=design_ns.y, default=0))
-
+                print(f"  - Setting position: ({x}, {y})")
                 entity_item.setPos(x, y)
 
             # Set rotation
             rotation_val = g.value(entity_uri, design_ns.rotation, default=0)
             if rotation_val:
+                print(f"  - Setting rotation: {rotation_val}")
                 entity_item.apply_rotation(int(rotation_val))
 
             # Set label
             label = g.value(entity_uri, rdflib.RDFS.label)
             if label:
+                print(f"  - Setting label: {label}")
                 entity_item.label = str(label)
 
+        print("Loading external references...")
         ref_query = """
                    SELECT ?point_uri ?ref_node ?ref_type ?pred ?obj
                    WHERE {
@@ -1487,17 +1502,21 @@ class Canvas(QGraphicsView):
                    } ORDER BY ?point_uri ?ref_node
                 """
         qres_refs = g.query(ref_query, initNs={"ref": AppConfig.ref_ns, "rdf": rdflib.RDF})
+        print(f"Found {len(qres_refs)} external reference triples")
 
         current_point_uri = None
         current_ref_node = None
         current_ref_data = {}
+        ref_count = 0
 
         for row in qres_refs:
             point_uri, ref_node, ref_type, pred, obj = row
+            print(f"Processing reference: {point_uri} -> {ref_node} ({ref_type})")
 
             # Find the corresponding EntityItem
             entity_item = loaded_entities.get(str(point_uri))
             if not entity_item or not isinstance(entity_item.entity, Point):
+                print(f"  - Skipping: Not a loaded Point entity")
                 continue  # Skip if point not loaded or not a Point type
 
             # Check if we are starting a new reference node
@@ -1507,7 +1526,9 @@ class Canvas(QGraphicsView):
                     current_ref_data['id'] = str(uuid.uuid4())  # Add internal ID on load
                     entity_item_prev = loaded_entities.get(str(current_point_uri))
                     if entity_item_prev:
+                        print(f"  - Adding reference to entity {current_point_uri}")
                         entity_item_prev.external_references.append(current_ref_data)
+                        ref_count += 1
 
                 # Start new reference data
                 current_point_uri = point_uri
@@ -1515,14 +1536,18 @@ class Canvas(QGraphicsView):
                 current_ref_data = {}
                 if ref_type == AppConfig.ref_ns.BACnetReference:
                     current_ref_data['type'] = 'BACnet'
+                    print(f"  - New BACnet reference")
                 elif ref_type == AppConfig.ref_ns.TimeseriesReference:
                     current_ref_data['type'] = 'Timeseries'
+                    print(f"  - New Timeseries reference")
                 else:
                     current_ref_data['type'] = 'Unknown'  # Should not happen based on query filter
+                    print(f"  - New Unknown reference type (unexpected)")
 
             # Add property to current reference data (skip rdf:type)
             if pred != rdflib.RDF.type:
                 prop_name = pred.split('#')[-1].split('/')[-1]  # Get local name
+                print(f"  - Adding property: {prop_name} = {obj}")
                 # Convert specific properties based on schema
                 if pred == AppConfig.bacnet_ns['object-identifier']:
                     current_ref_data['object-identifier'] = str(obj)
@@ -1550,39 +1575,54 @@ class Canvas(QGraphicsView):
             if current_ref_data.get('type') == 'BACnet':
                 if 'BACnetURI' in current_ref_data:
                     current_ref_data['option'] = 2
+                    print(f"  - Setting BACnet option 2 (URI)")
                 elif 'object-identifier' in current_ref_data:
                     current_ref_data['option'] = 1
+                    print(f"  - Setting BACnet option 1 (object-identifier)")
                 # else: option remains undetermined until more props are read
 
         # Add the last processed reference
         if current_ref_node and current_ref_data:
+            print(f"Adding final reference for {current_point_uri}")
             current_ref_data['id'] = str(uuid.uuid4())
             entity_item_last = loaded_entities.get(str(current_point_uri))
             if entity_item_last and isinstance(entity_item_last.entity, Point):
                 entity_item_last.external_references.append(current_ref_data)
+                ref_count += 1
+
+        print(f"Added {ref_count} external references")
 
         # Track relationships that have been visually represented
         processed_relationships = set()
 
         # Second pass: Load connections that have visual representations
+        print("Second pass: Loading visual connections...")
+        visual_conn_count = 0
+
         for conn_uri in g.subjects(rdflib.RDF.type, design_ns.Connection):
+            print(f"Processing connection: {conn_uri}")
 
             # Get source and target
             source_uri = g.value(conn_uri, design_ns.sourceEntity)
             target_uri = g.value(conn_uri, design_ns.targetEntity)
 
             if not source_uri or not target_uri:
+                print(f"  - Skipping: Missing source or target")
                 continue
+
+            print(f"  - Connection from {source_uri} to {target_uri}")
 
             # Get the entity items
             source_item = loaded_entities.get(str(source_uri))
             target_item = loaded_entities.get(str(target_uri))
 
             if not source_item or not target_item:
+                print(f"  - Skipping: Source or target not in loaded entities")
                 continue
 
             # Create connection
             connection = ConnectionItem(source_item.port, target_item.port)
+            print(f"  - Created connection between ports")
 
             # Set connection URI
             connection.instance_uri = conn_uri
@@ -1590,9 +1630,11 @@ class Canvas(QGraphicsView):
             # Set relationship type
             rel_type_str = g.value(conn_uri, rdflib.URIRef(design_ns + "relationshipType"))
             if rel_type_str:
+                print(f"  - Setting relationship type: {rel_type_str}")
                 for rel_name, rel_uri in BRICK_RELATIONSHIPS.items():
                     if str(rel_uri) == str(rel_type_str):
                         connection.set_relationship_type(rel_uri)
+                        print(f"  - Matched to known relationship: {rel_name}")
                         # Track this relationship as processed
                         processed_relationships.add((str(source_uri), str(rel_uri), str(target_uri)))
                         break
@@ -1609,16 +1651,19 @@ class Canvas(QGraphicsView):
                 blue = int(blue_val)
 
                 color = QColor(red, green, blue)
+                print(f"  - Setting color: RGB({red}, {green}, {blue})")
 
                 # Set line style
                 style_val = g.value(conn_uri, design_ns.lineStyle)
                 line_style_val = Qt.SolidLine
                 if style_val:
                     line_style_val = Qt.PenStyle(int(style_val))
+                    print(f"  - Setting line style: {line_style_val}")
 
                 # Set line width
                 width_val = g.value(conn_uri, design_ns.lineWidth, default=2)
                 width = int(width_val) if width_val else 2
+                print(f"  - Setting line width: {width}")
 
                 # Apply pen
                 pen = QPen(color, width, line_style_val, Qt.RoundCap, Qt.RoundJoin)
@@ -1626,9 +1671,11 @@ class Canvas(QGraphicsView):
 
             # Add to scene
             self.scene.addItem(connection)
+            visual_conn_count += 1
 
             # Load joints
             joint_data = []
+            joint_count = 0
             for joint_node in g.objects(conn_uri, rdflib.URIRef(design_ns + "hasJoint")):
                 idx_val = g.value(joint_node, design_ns.jointIndex)
                 x_val = g.value(joint_node, design_ns.x)
@@ -1639,9 +1686,12 @@ class Canvas(QGraphicsView):
                     x = float(x_val)
                     y = float(y_val)
                     joint_data.append((idx, x, y))
+                    joint_count += 1
+                    print(f"  - Found joint #{idx} at ({x}, {y})")
 
             # Sort joints by index
             joint_data.sort(key=lambda d: d[0])
+            print(f"  - Adding {joint_count} joints to connection")
 
             # Add joints to connection
             for _, x, y in joint_data:
@@ -1650,21 +1700,31 @@ class Canvas(QGraphicsView):
             # Update connection visuals
             connection.update_position()
 
+        print(f"Added {visual_conn_count} visual connections")
+
         # Third pass: Create straight connections for relationships without visual elements
+        print("Third pass: Creating implicit connections from relationships...")
+        implicit_conn_count = 0
+
         for relation_uri in BRICK_RELATIONSHIPS.values():
+            print(f"Checking for implicit {relation_uri} relationships...")
             for source_uri, _, target_uri in g.triples((None, relation_uri, None)):
+                print(f"Found relationship: {source_uri} -> {target_uri}")
 
                 # Skip if source or target is not a loaded entity
                 if str(source_uri) not in loaded_entities or str(target_uri) not in loaded_entities:
+                    print(f"  - Skipping: Source or target not loaded")
                     continue
 
                 # Skip if this relationship is already processed
                 if (str(source_uri), str(relation_uri), str(target_uri)) in processed_relationships:
+                    print(f"  - Skipping: Relationship already represented visually")
                     continue
 
                 # Get the entity items
                 source_item = loaded_entities[str(source_uri)]
                 target_item = loaded_entities[str(target_uri)]
+                print(f"  - Creating implicit connection")
 
                 # Create a straight connection
                 connection = ConnectionItem(source_item.port, target_item.port)
@@ -1674,6 +1734,7 @@ class Canvas(QGraphicsView):
 
                 # Generate a new instance URI for this connection
                 connection.instance_uri = rdflib.URIRef(f"{design_ns}Connection_{len(processed_relationships)}")
+                print(f"  - Assigned new URI: {connection.instance_uri}")
 
                 # Use default visual settings
                 pen = QPen(QColor(0, 0, 0), 2, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
@@ -1681,6 +1742,7 @@ class Canvas(QGraphicsView):
 
                 # Add to scene
                 self.scene.addItem(connection)
+                implicit_conn_count += 1
 
                 # Update connection
                 connection.update_position()
@@ -1688,5 +1750,8 @@ class Canvas(QGraphicsView):
                 # Add to processed set to avoid duplicates
                 processed_relationships.add((str(source_uri), str(relation_uri), str(target_uri)))
 
-        return True
+        print(f"Added {implicit_conn_count} implicit connections")
+        print(f"Total connections: {visual_conn_count + implicit_conn_count}")
+        print("Import complete!")
 
+        return True
