@@ -235,39 +235,47 @@ class DiagramApplication(QMainWindow):
                 print(f"Import error: {e}")
 
     def dragEnterEvent(self, event: QDragEnterEvent) -> None:
+
         print("dragEnterEvent triggered")
         if event.mimeData().hasUrls():
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
                 print(f"Drag enter with file: {file_path}")
-                if file_path.lower().endswith('.ttl'):
-                    print(f"Accepting .ttl file: {file_path}")
+                if file_path.lower().endswith(('.ttl', '.ifc')):
+                    print(f"Accepting file: {file_path}")
                     event.acceptProposedAction()
                     return
+
         print("Ignoring drag enter event")
         event.ignore()
 
     def dragMoveEvent(self, event: QDragMoveEvent) -> None:
+
         if event.mimeData().hasUrls():
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
-                if file_path.lower().endswith('.ttl'):
+                if file_path.lower().endswith(('.ttl', '.ifc')):
                     event.acceptProposedAction()
                     return
+
         event.ignore()
 
     def dropEvent(self, event: QDropEvent) -> None:
         print("dropEvent triggered")
         if event.mimeData().hasUrls():
             ttl_files = []
+            ifc_files = []
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
                 print(f"Drop file: {file_path}")
                 if file_path.lower().endswith('.ttl'):
                     ttl_files.append(file_path)
+                elif file_path.lower().endswith('.ifc'):
+                    ifc_files.append(file_path)
 
             if ttl_files:
                 print(f"Processing {len(ttl_files)} TTL files")
+
                 # Process ttl files (import without clearing)
                 for ttl_file in ttl_files:
                     try:
@@ -284,6 +292,22 @@ class DiagramApplication(QMainWindow):
 
                 event.acceptProposedAction()
                 return
+
+            if ifc_files:
+                print(f"Processing {len(ifc_files)} IFC files")
+
+                for ifc_file in ifc_files:
+                    try:
+                        print(f"Importing TTL file: {ifc_file}")
+
+                        self.canvas.load_from_ifc(ifc_file)
+                        self.statusBar().showMessage(f"Imported {ifc_file}")
+                        print(f"Successfully imported {ifc_file}")
+                    except Exception as e:
+                        error_msg = f"Error importing {ifc_file}: {str(e)}"
+                        print(error_msg)
+                        QMessageBox.critical(self, "Import Error", error_msg)
+
         print("Ignoring drop event")
         event.ignore()
 

@@ -21,6 +21,7 @@ from src.app.items import EntityItem, ConnectionItem, PortItem, JointItem
 from src.config import AppConfig
 from src.logging import Logger
 from src.app.dialogs import ExternalReferencesDialog
+from src.ifc import extract_topology
 
 # Ontology namespace definitions
 BRICK_RELATIONSHIPS = {
@@ -1413,6 +1414,12 @@ class Canvas(QGraphicsView):
         g.parse(file_path, format="turtle")
 
         self.import_from_graph(g)
+
+    def load_from_ifc(self, file_path):
+
+        g = extract_topology(file_path)
+
+        self.import_from_graph(g=g)
 
     def import_from_graph(self, g: rdflib.Graph):
 
