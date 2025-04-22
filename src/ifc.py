@@ -202,3 +202,15 @@ def extract_topology(ifc_file_path: str | pathlib.Path):
             g.add((position_node, design_ns.y, rdflib.Literal(room_y)))
 
     return g
+
+
+if __name__ == '__main__':
+
+    g = extract_topology('../data/IFC/boptest_multizone.ifc')
+
+    g.serialize('../data/IFC/boptest_multizone.ttl')
+
+
+
+
+

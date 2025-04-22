@@ -2,6 +2,10 @@ import rdflib
 
 import typing
 
+from src.config import AppConfig
+
+BRICK = AppConfig.brick_ns
+
 
 def split_uri(uri: str | rdflib.URIRef) -> [str, str]:
     if isinstance(uri, rdflib.URIRef):
@@ -81,7 +85,7 @@ class EntityLibrary:
     """Static collection of entity definitions from the Brick and REC ontologies."""
 
     valve = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Valve"),
+        uri_ref=BRICK.Valve,
         svg_data="""
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
               <path d="M 0, 10 L 0, 40 L 25, 25 Z" fill="white" stroke="black" stroke-width="1"/>
@@ -92,7 +96,7 @@ class EntityLibrary:
     )
 
     mixing_valve = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Mixing_Valve"),
+        uri_ref=BRICK.Bypass_Valve,
         svg_data="""
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
               <path d="M 0, 10 L 0, 40 L 25, 25 Z" fill="white" stroke="black" stroke-width="1"/>
@@ -104,7 +108,7 @@ class EntityLibrary:
     )
 
     pump = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Pump"),
+        uri_ref=BRICK.Pump,
         svg_data="""
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
               <circle cx="25" cy="25" r="25" fill="white" stroke="black" stroke-width="1"/>
@@ -116,7 +120,7 @@ class EntityLibrary:
     )
 
     fan = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Fan"),
+        uri_ref=BRICK.Fan,
         svg_data="""
             <svg
                width="50"
@@ -194,7 +198,7 @@ class EntityLibrary:
     )
 
     radiator = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Radiator"),
+        uri_ref=BRICK.Radiator,
         svg_data="""
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
               <circle cx="25" cy="25" r="25" fill="white" stroke="black" stroke-width="1"/>
@@ -206,7 +210,7 @@ class EntityLibrary:
     )
 
     boiler = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Boiler"),
+        uri_ref=BRICK.Boiler,
         svg_data="""
         <svg
            width="50"
@@ -300,7 +304,7 @@ class EntityLibrary:
     )
 
     Heating_Coil = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Heating_Coil"),
+        uri_ref=BRICK.Heating_Coil,
         svg_data="""
         <svg
            width="50"
@@ -368,7 +372,7 @@ class EntityLibrary:
     )
 
     Cooling_Coil = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Cooling_Coil"),
+        uri_ref=BRICK.Cooling_Coil,
         svg_data="""
             <svg
                width="50"
@@ -440,7 +444,7 @@ class EntityLibrary:
     )
 
     Heat_Exchanger = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Heat_Exchanger"),
+        uri_ref=BRICK.Heat_Exchanger,
         svg_data="""
         <svg
            width="50"
@@ -518,7 +522,7 @@ class EntityLibrary:
     )
 
     Damper = Entity(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Damper"),
+        uri_ref=BRICK.Damper,
         svg_data="""
         <svg
            width="50"
@@ -593,27 +597,27 @@ class EntityLibrary:
     )
 
     point = Point(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Point"),
+        uri_ref=BRICK.Point,
         category=["BRICK"],
     )
 
     temperature_sensor = Point(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Temperature_Sensor"),
+        uri_ref=BRICK.Temperature_Sensor,
         category=["BRICK", "Point", "Sensor"],
     )
 
     temperature_setpoint = Point(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint"),
+        uri_ref=BRICK.Temperature_Setpoint,
         category=["BRICK", "Point", "Setpoint"],
     )
 
     Position_Sensor = Point(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Position_Sensor"),
+        uri_ref=BRICK.Position_Sensor,
         category=["BRICK", "Point", "Sensor"],
     )
 
     Position_Setpoint = Point(
-        uri_ref=rdflib.URIRef("https://brickschema.org/schema/1.1/Brick#Position_Setpoint"),
+        uri_ref=BRICK.Position_Setpoint,
         category=["BRICK", "Point", "Setpoint"],
     )
 
@@ -640,7 +644,7 @@ class EntityLibrary:
     )
 
     HVACZone = Entity(
-        uri_ref=rdflib.URIRef("https://doc.realestatecore.io/4.0/#HVACZone"),
+        uri_ref=rdflib.URIRef("https://doc.realestatecore.io/4.0/#HVAC_Zone"),
         svg_data="""
             <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
                 <rect width="50" height="100" x="0" y="0" fill="white" stroke="black" stroke-width="2"/> 
@@ -673,3 +677,8 @@ class EntityLibrary:
         raise AttributeError(f"Entity not found for URI: {uri_ref}")
 
 
+
+if __name__ == '__main__':
+
+    for e in EntityLibrary.get_all_entities():
+        print(e.uri_ref)
