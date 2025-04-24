@@ -2,9 +2,7 @@ import rdflib
 
 import typing
 
-from src.config import AppConfig
-
-BRICK = AppConfig.brick_ns
+from src.ontologies.namespaces import BRICK
 
 
 def split_uri(uri: str | rdflib.URIRef) -> [str, str]:

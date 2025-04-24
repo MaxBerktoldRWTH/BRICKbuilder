@@ -1,5 +1,4 @@
 import math
-import uuid
 import rdflib
 
 # PyQt imports
@@ -11,6 +10,7 @@ from PyQt5.QtSvg import QSvgRenderer, QGraphicsSvgItem
 # Local imports
 from src.model import EntityLibrary, Point
 from src.config import AppConfig
+from src.ontologies.namespaces import BLDG, short_uuid
 
 
 class EntityItem(QGraphicsSvgItem):
@@ -20,7 +20,7 @@ class EntityItem(QGraphicsSvgItem):
         self.entity = EntityLibrary.find_entity_by_uri(uri_ref)
 
         # Generate a unique instance URI
-        self.instance_uri = rdflib.URIRef(f"http://example.org/building/instances/{uuid.uuid4()}")
+        self.instance_uri = BLDG[short_uuid()]
         self.label = ""
         self.external_references: list[dict] = []
 
@@ -245,7 +245,7 @@ class ConnectionItem(QGraphicsPathItem):
             target_port.add_connection(self)
 
         # Create unique relationship URI
-        self.instance_uri = AppConfig.building_ns[str(uuid.uuid4())]
+        self.instance_uri = BLDG[short_uuid()]
 
         # Set default relationship type
         if relationship_type is None:

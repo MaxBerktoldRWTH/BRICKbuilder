@@ -550,170 +550,170 @@ design:Connection_5 a design:Connection ;
     design:sourceEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1jPCssxb5C1RSMYHIx2> ;
     design:targetEntity <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
 
-<http://example.org/building/instances/0d7dda81-155c-47b8-9a1d-b5ebeb7e668d> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+<http://example.org/building/instances/0d7dda81-155c-47b8-9a1d-b5ebeb7e668d> a <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
     design:hasPosition [ design:x 8.375e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
 
-<http://example.org/building/instances/2339d0f6-586c-48c3-9aff-2b87910db4ac> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+<http://example.org/building/instances/2339d0f6-586c-48c3-9aff-2b87910db4ac> a <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
     design:hasPosition [ design:x 1.0125e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
 
-<http://example.org/building/instances/239abd75-a927-4dc5-989e-70b06fc4f6c9> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+<http://example.org/building/instances/239abd75-a927-4dc5-989e-70b06fc4f6c9> a <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
     design:hasPosition [ design:x 1.1875e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
 
-<http://example.org/building/instances/2fa1abef-338c-4159-b852-c336e1f8d559> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+<http://example.org/building/instances/2fa1abef-338c-4159-b852-c336e1f8d559> a <https://brickschema.org/schema/Brick#Temperature_Setpoint> ;
     design:hasPosition [ design:x 6.875e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
 
-<http://example.org/building/instances/315e0e35-6183-44c0-86ec-552f7b73cea5> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+<http://example.org/building/instances/315e0e35-6183-44c0-86ec-552f7b73cea5> a <https://brickschema.org/schema/Brick#Position_Setpoint> ;
     design:hasPosition [ design:x 9.875e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
 
-<http://example.org/building/instances/35be2a77-5c31-478c-b1f1-22936f95ca8f> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+<http://example.org/building/instances/35be2a77-5c31-478c-b1f1-22936f95ca8f> a <https://brickschema.org/schema/Brick#Temperature_Setpoint> ;
     design:hasPosition [ design:x 1.0375e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF9> .
 
-<http://example.org/building/instances/46eb298d-3ea1-4f22-8545-ee86ef61b5a1> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+<http://example.org/building/instances/46eb298d-3ea1-4f22-8545-ee86ef61b5a1> a <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
     design:hasPosition [ design:x 4.875e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
 
-<http://example.org/building/instances/5820ef36-e490-47dd-83ac-44f6fbc799bf> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+<http://example.org/building/instances/5820ef36-e490-47dd-83ac-44f6fbc799bf> a <https://brickschema.org/schema/Brick#Position_Setpoint> ;
     design:hasPosition [ design:x 1.1625e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
 
-<http://example.org/building/instances/6587058a-567a-412c-b212-c28f0b004942> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+<http://example.org/building/instances/6587058a-567a-412c-b212-c28f0b004942> a <https://brickschema.org/schema/Brick#Position_Setpoint> ;
     design:hasPosition [ design:x 4.625e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
 
-<http://example.org/building/instances/7ddfaa13-f5e0-4336-ac7a-341e99b9671e> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+<http://example.org/building/instances/7ddfaa13-f5e0-4336-ac7a-341e99b9671e> a <https://brickschema.org/schema/Brick#Position_Sensor> ;
     design:hasPosition [ design:x 1.1375e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> .
 
-<http://example.org/building/instances/84208ba5-63f8-48ac-8c5e-0cf62d6099b6> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+<http://example.org/building/instances/84208ba5-63f8-48ac-8c5e-0cf62d6099b6> a <https://brickschema.org/schema/Brick#Position_Sensor> ;
     design:hasPosition [ design:x 6.125e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
 
-<http://example.org/building/instances/88b0c37c-1041-4ee4-af77-830a1aea0671> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+<http://example.org/building/instances/88b0c37c-1041-4ee4-af77-830a1aea0671> a <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
     design:hasPosition [ design:x 6.625e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFF> .
 
-<http://example.org/building/instances/8e0767a8-1d5c-4928-88d1-62d7d615ef84> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+<http://example.org/building/instances/8e0767a8-1d5c-4928-88d1-62d7d615ef84> a <https://brickschema.org/schema/Brick#Temperature_Setpoint> ;
     design:hasPosition [ design:x 5.125e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFE> .
 
-<http://example.org/building/instances/977cd4c0-d4ce-4582-a9b0-28e1d7beb946> a <https://brickschema.org/schema/1.1/Brick#Boiler> ;
+<http://example.org/building/instances/977cd4c0-d4ce-4582-a9b0-28e1d7beb946> a <https://brickschema.org/schema/Brick#Boiler> ;
     design:hasPosition [ design:x 1e+02 ;
             design:y 5.6e+02 ] ;
     design:rotation 0 ;
     brick:feeds <http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> .
 
-<http://example.org/building/instances/98a80a7c-0537-43fc-8b12-fa16b7c80096> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+<http://example.org/building/instances/98a80a7c-0537-43fc-8b12-fa16b7c80096> a <https://brickschema.org/schema/Brick#Temperature_Setpoint> ;
     design:hasPosition [ design:x 1.2125e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFA> .
 
-<http://example.org/building/instances/b3043235-48ce-4141-a068-0be3233d4782> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+<http://example.org/building/instances/b3043235-48ce-4141-a068-0be3233d4782> a <https://brickschema.org/schema/Brick#Temperature_Setpoint> ;
     design:hasPosition [ design:x 8.625e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfF8> .
 
-<http://example.org/building/instances/b4733d36-4257-4b82-ac70-fc7618327b8c> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+<http://example.org/building/instances/b4733d36-4257-4b82-ac70-fc7618327b8c> a <https://brickschema.org/schema/Brick#Position_Sensor> ;
     design:hasPosition [ design:x 9.625e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> .
 
-<http://example.org/building/instances/b4a464ba-1cb3-4fac-bf20-d0b220b6a21d> a <https://brickschema.org/schema/1.1/Brick#Temperature_Sensor> ;
+<http://example.org/building/instances/b4a464ba-1cb3-4fac-bf20-d0b220b6a21d> a <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
     design:hasPosition [ design:x 1.3375e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
 
-<http://example.org/building/instances/b8c37ae1-1a5b-497b-8d98-8949c52c67aa> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+<http://example.org/building/instances/b8c37ae1-1a5b-497b-8d98-8949c52c67aa> a <https://brickschema.org/schema/Brick#Position_Sensor> ;
     design:hasPosition [ design:x 4.375e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> .
 
-<http://example.org/building/instances/be52b3a4-fdb2-4a26-ae65-760a29de9e32> a <https://brickschema.org/schema/1.1/Brick#Position_Sensor> ;
+<http://example.org/building/instances/be52b3a4-fdb2-4a26-ae65-760a29de9e32> a <https://brickschema.org/schema/Brick#Position_Sensor> ;
     design:hasPosition [ design:x 7.875e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
 
-<http://example.org/building/instances/ee13b1fd-8d91-48da-8c15-64b16b176fc6> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+<http://example.org/building/instances/ee13b1fd-8d91-48da-8c15-64b16b176fc6> a <https://brickschema.org/schema/Brick#Position_Setpoint> ;
     design:hasPosition [ design:x 6.375e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> .
 
-<http://example.org/building/instances/f348dd9f-3178-46b6-b4ab-b8aa33e68944> a <https://brickschema.org/schema/1.1/Brick#Temperature_Setpoint> ;
+<http://example.org/building/instances/f348dd9f-3178-46b6-b4ab-b8aa33e68944> a <https://brickschema.org/schema/Brick#Temperature_Setpoint> ;
     design:hasPosition [ design:x 1.3625e+03 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <file:///D:/PycharmProjects/ontobuilder/data/TTL/1F9opXHeTAGfSNZo6IfFB> .
 
-<http://example.org/building/instances/f3ff8726-242b-402b-ad78-69a53de93c84> a <https://brickschema.org/schema/1.1/Brick#Position_Setpoint> ;
+<http://example.org/building/instances/f3ff8726-242b-402b-ad78-69a53de93c84> a <https://brickschema.org/schema/Brick#Position_Setpoint> ;
     design:hasPosition [ design:x 8.125e+02 ;
             design:y 8.75e+02 ] ;
     design:rotation 0 ;
     brick:isPointOf <http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> .
 
-<http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+<http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> a <https://brickschema.org/schema/Brick#Radiator> ;
     design:hasPosition [ design:x 3.75e+02 ;
             design:y 4.5e+02 ] ;
     design:rotation 0 .
 
-<http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+<http://example.org/building/instances/218fa387-d384-47d0-b51d-303392542fb8> a <https://brickschema.org/schema/Brick#Radiator> ;
     design:hasPosition [ design:x 1.25e+03 ;
             design:y 4.5e+02 ] ;
     design:rotation 0 .
 
-<http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+<http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> a <https://brickschema.org/schema/Brick#Radiator> ;
     design:hasPosition [ design:x 9e+02 ;
             design:y 4.5e+02 ] ;
     design:rotation 0 .
 
-<http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+<http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> a <https://brickschema.org/schema/Brick#Radiator> ;
     design:hasPosition [ design:x 7.25e+02 ;
             design:y 4.5e+02 ] ;
     design:rotation 0 .
 
-<http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+<http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> a <https://brickschema.org/schema/Brick#Radiator> ;
     design:hasPosition [ design:x 5.5e+02 ;
             design:y 4.5e+02 ] ;
     design:rotation 0 .
 
-<http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> a <https://brickschema.org/schema/1.1/Brick#Radiator> ;
+<http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> a <https://brickschema.org/schema/Brick#Radiator> ;
     design:hasPosition [ design:x 1.075e+03 ;
             design:y 4.5e+02 ] ;
     design:rotation 0 .
@@ -772,37 +772,37 @@ design:Connection_5 a design:Connection ;
     design:rotation 0 ;
     brick:isLocationOf <http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> .
 
-<http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+<http://example.org/building/instances/009ed1cc-d0c8-486c-a926-45ea89e16947> a <https://brickschema.org/schema/Brick#Valve> ;
     design:hasPosition [ design:x 9e+02 ;
             design:y 5.75e+02 ] ;
     design:rotation 90 ;
     brick:feeds <http://example.org/building/instances/2621fa11-2704-4be7-98de-1a454c3160b6> .
 
-<http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+<http://example.org/building/instances/1690f306-516b-4775-802a-da4b5f0e5b87> a <https://brickschema.org/schema/Brick#Valve> ;
     design:hasPosition [ design:x 3.75e+02 ;
             design:y 5.75e+02 ] ;
     design:rotation 90 ;
     brick:feeds <http://example.org/building/instances/04958f29-f892-41bf-97a6-83c9d57faf90> .
 
-<http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+<http://example.org/building/instances/389e553c-b531-4ad9-ab34-b4a0770931e5> a <https://brickschema.org/schema/Brick#Valve> ;
     design:hasPosition [ design:x 5.5e+02 ;
             design:y 5.75e+02 ] ;
     design:rotation 90 ;
     brick:feeds <http://example.org/building/instances/57d7c90b-85b1-44ec-b521-4787d2c99870> .
 
-<http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+<http://example.org/building/instances/62c54551-2035-4562-ba83-54cabf8dca59> a <https://brickschema.org/schema/Brick#Valve> ;
     design:hasPosition [ design:x 1.075e+03 ;
             design:y 5.75e+02 ] ;
     design:rotation 90 ;
     brick:feeds <http://example.org/building/instances/8016aa5f-fed3-40e3-8ee7-f2a106c8f83e> .
 
-<http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> a <https://brickschema.org/schema/1.1/Brick#Valve> ;
+<http://example.org/building/instances/bffdd6d5-ef6a-42a1-ab49-eb701b86b035> a <https://brickschema.org/schema/Brick#Valve> ;
     design:hasPosition [ design:x 7.25e+02 ;
             design:y 5.75e+02 ] ;
     design:rotation 90 ;
     brick:feeds <http://example.org/building/instances/28ab2650-fd7f-4f98-ae05-84721fcdcb65> .
 
-<http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> a <https://brickschema.org/schema/1.1/Brick#Pump> ;
+<http://example.org/building/instances/13cd6024-f207-4f0b-bd6b-15b50e85f3e4> a <https://brickschema.org/schema/Brick#Pump> ;
     design:hasPosition [ design:x 2.5e+02 ;
             design:y 7e+02 ] ;
     design:rotation 0 ;

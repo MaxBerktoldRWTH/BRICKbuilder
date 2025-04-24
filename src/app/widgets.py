@@ -22,6 +22,7 @@ from src.config import AppConfig
 from src.logging import Logger
 from src.app.dialogs import ExternalReferencesDialog
 from src.ifc import extract_topology
+from src.ontologies.namespaces import BLDG, BRICK, BRICK_REF, VISU, BACNET, bind_namespaces
 
 # Ontology namespace definitions
 BRICK_RELATIONSHIPS = {
@@ -1288,11 +1289,7 @@ class Canvas(QGraphicsView):
         g = rdflib.Graph()
 
         # Create explicit URIRefs for our design properties
-        design_ns = AppConfig.design_ns
-        g.bind("design", design_ns)
-        g.bind("brick", rdflib.BRICK)
-        g.bind("ref", AppConfig.ref_ns)
-        g.bind("bacnet", AppConfig.bacnet_ns)
+        bind_namespaces(g=g)
 
         # Store all entities
         for item in self.scene.items():
@@ -1305,13 +1302,13 @@ class Canvas(QGraphicsView):
                 # Add position information
                 pos = item.pos()
                 pos_node = rdflib.BNode()
-                g.add((item.instance_uri, design_ns.hasPosition, pos_node))
-                g.add((pos_node, design_ns.x, rdflib.Literal(float(pos.x()))))
-                g.add((pos_node, design_ns.y, rdflib.Literal(float(pos.y()))))
+                g.add((item.instance_uri, VISU.hasPosition, pos_node))
+                g.add((pos_node, VISU.x, rdflib.Literal(float(pos.x()))))
+                g.add((pos_node, VISU.y, rdflib.Literal(float(pos.y()))))
 
                 # Add rotation information
                 rotation_literal = rdflib.Literal(item.rotation_angle, datatype=rdflib.XSD.integer)
-                g.add((item.instance_uri, design_ns.rotation, rotation_literal))
+                g.add((item.instance_uri, VISU.rotation, rotation_literal))
 
                 # Add label if it exists
                 if item.label:
@@ -1321,27 +1318,27 @@ class Canvas(QGraphicsView):
                 if isinstance(item.entity, Point) and item.external_references:
                     for ref_data in item.external_references:
                         ref_bnode = rdflib.BNode() # Blank node for the reference details
-                        g.add((item.instance_uri, AppConfig.ref_ns.hasExternalReference, ref_bnode))
+                        g.add((item.instance_uri, BRICK_REF.hasExternalReference, ref_bnode))
 
                         ref_type = ref_data.get('type')
                         if ref_type == "BACnet":
-                            g.add((ref_bnode, rdflib.RDF.type, AppConfig.ref_ns.BACnetReference))
+                            g.add((ref_bnode, rdflib.RDF.type, BRICK_REF.BACnetReference))
                             option = ref_data.get('option', 1)
                             if option == 1:
-                                if 'object-identifier' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['object-identifier'], rdflib.Literal(ref_data['object-identifier'])))
-                                if 'object-name' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['object-name'], rdflib.Literal(ref_data['object-name'])))
-                                if 'object-type' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['object-type'], rdflib.Literal(ref_data['object-type']))) # Maybe map to BACnet type URIs later?
-                                if 'description' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns.description, rdflib.Literal(ref_data['description'])))
-                                if 'read-property' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns['read-property'], rdflib.Literal(ref_data['read-property'])))
-                                if 'objectOf' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
+                                if 'object-identifier' in ref_data: g.add((ref_bnode, BACNET['object-identifier'], rdflib.Literal(ref_data['object-identifier'])))
+                                if 'object-name' in ref_data: g.add((ref_bnode, BACNET['object-name'], rdflib.Literal(ref_data['object-name'])))
+                                if 'object-type' in ref_data: g.add((ref_bnode, BACNET['object-type'], rdflib.Literal(ref_data['object-type']))) # Maybe map to BACnet type URIs later?
+                                if 'description' in ref_data: g.add((ref_bnode, BACNET.description, rdflib.Literal(ref_data['description'])))
+                                if 'read-property' in ref_data: g.add((ref_bnode, BACNET['read-property'], rdflib.Literal(ref_data['read-property'])))
+                                if 'objectOf' in ref_data: g.add((ref_bnode, BACNET.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
                             elif option == 2:
-                                if 'BACnetURI' in ref_data: g.add((ref_bnode, AppConfig.brick_ns.BACnetURI, rdflib.Literal(ref_data['BACnetURI'])))
-                                if 'objectOf' in ref_data: g.add((ref_bnode, AppConfig.bacnet_ns.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
+                                if 'BACnetURI' in ref_data: g.add((ref_bnode, BRICK.BACnetURI, rdflib.Literal(ref_data['BACnetURI'])))
+                                if 'objectOf' in ref_data: g.add((ref_bnode, BACNET.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
 
                         elif ref_type == "Timeseries":
-                            g.add((ref_bnode, rdflib.RDF.type, AppConfig.ref_ns.TimeseriesReference))
-                            if 'timeseriesId' in ref_data: g.add((ref_bnode, AppConfig.ref_ns.hasTimeseriesId, rdflib.Literal(ref_data['timeseriesId'])))
-                            if 'storedAt' in ref_data: g.add((ref_bnode, AppConfig.ref_ns.storedAt, rdflib.URIRef(ref_data['storedAt']))) # Store as URI
+                            g.add((ref_bnode, rdflib.RDF.type, BRICK_REF.TimeseriesReference))
+                            if 'timeseriesId' in ref_data: g.add((ref_bnode, BRICK_REF.hasTimeseriesId, rdflib.Literal(ref_data['timeseriesId'])))
+                            if 'storedAt' in ref_data: g.add((ref_bnode, BRICK_REF.storedAt, rdflib.URIRef(ref_data['storedAt']))) # Store as URI
 
 
         # Store all connections
@@ -1357,45 +1354,45 @@ class Canvas(QGraphicsView):
                     g.add((source_uri, item.relationship_type, target_uri))
 
                     # Store connection visual properties
-                    g.add((item.instance_uri, rdflib.RDF.type, rdflib.URIRef(design_ns.Connection)))
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "sourceEntity"), source_uri))
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "targetEntity"), target_uri))
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "relationshipType"),
+                    g.add((item.instance_uri, rdflib.RDF.type, rdflib.URIRef(VISU.Connection)))
+                    g.add((item.instance_uri, rdflib.URIRef(VISU + "sourceEntity"), source_uri))
+                    g.add((item.instance_uri, rdflib.URIRef(VISU + "targetEntity"), target_uri))
+                    g.add((item.instance_uri, rdflib.URIRef(VISU + "relationshipType"),
                            rdflib.Literal(str(item.relationship_type))))
 
                     # Store connection color
                     color = item.pen().color()
                     color_node = rdflib.BNode()
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "color"), color_node))
-                    g.add((color_node, rdflib.URIRef(design_ns + "red"),
+                    g.add((item.instance_uri, rdflib.URIRef(VISU + "color"), color_node))
+                    g.add((color_node, rdflib.URIRef(VISU + "red"),
                            rdflib.Literal(color.red(), datatype=rdflib.XSD.integer)))
                     g.add(
-                        (color_node, rdflib.URIRef(design_ns + "green"),
+                        (color_node, rdflib.URIRef(VISU + "green"),
                          rdflib.Literal(color.green(), datatype=rdflib.XSD.integer)))
-                    g.add((color_node, rdflib.URIRef(design_ns + "blue"),
+                    g.add((color_node, rdflib.URIRef(VISU + "blue"),
                            rdflib.Literal(color.blue(), datatype=rdflib.XSD.integer)))
 
                     # Store line style
                     pen_style = item.pen().style()
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "lineStyle"),
+                    g.add((item.instance_uri, rdflib.URIRef(VISU + "lineStyle"),
                            rdflib.Literal(int(pen_style), datatype=rdflib.XSD.integer)))
 
                     # Store line width
                     pen_width = item.pen().width()
-                    g.add((item.instance_uri, rdflib.URIRef(design_ns + "lineWidth"),
+                    g.add((item.instance_uri, rdflib.URIRef(VISU + "lineWidth"),
                            rdflib.Literal(pen_width, datatype=rdflib.XSD.integer)))
 
                     # Store joints - using explicit URIRefs to avoid the error
                     for i, joint in enumerate(item.joints):
                         joint_node = rdflib.BNode()
-                        g.add((item.instance_uri, design_ns.hasJoint, joint_node))
-                        g.add((joint_node, design_ns.jointIndex, rdflib.Literal(i, datatype=rdflib.XSD.integer)))
+                        g.add((item.instance_uri, VISU.hasJoint, joint_node))
+                        g.add((joint_node, VISU.jointIndex, rdflib.Literal(i, datatype=rdflib.XSD.integer)))
 
                         joint_pos = joint.scenePos()
                         g.add(
-                            (joint_node, design_ns.x, rdflib.Literal(float(joint_pos.x()), datatype=rdflib.XSD.float)))
+                            (joint_node, VISU.x, rdflib.Literal(float(joint_pos.x()), datatype=rdflib.XSD.float)))
                         g.add(
-                            (joint_node, design_ns.y, rdflib.Literal(float(joint_pos.y()), datatype=rdflib.XSD.float)))
+                            (joint_node, VISU.y, rdflib.Literal(float(joint_pos.y()), datatype=rdflib.XSD.float)))
 
         # Serialize to turtle format and save
         g.serialize(destination=file_path, format="turtle")
@@ -1425,8 +1422,8 @@ class Canvas(QGraphicsView):
         print(f"Starting import_from_graph with {len(g)} triples")
 
         # Define design namespace explicitly as a string prefix
-        design_ns = AppConfig.design_ns
-        print(f"Using design namespace: {design_ns}")
+
+        print(f"Using design namespace: {VISU}")
 
         # Dictionary to keep track of loaded entities by URI
         loaded_entities = {}
@@ -1438,7 +1435,7 @@ class Canvas(QGraphicsView):
 
         for subject, predicate, obj in g.triples((None, rdflib.RDF.type, None)):
             # Skip connections - we'll handle them in the second pass
-            if obj == design_ns.Connection:
+            if obj == VISU.Connection:
                 continue
 
             # Check if it's an entity type from our library
@@ -1473,14 +1470,14 @@ class Canvas(QGraphicsView):
             entity_uri = rdflib.URIRef(entity_uri_str)
 
             # Set position
-            for pos_node in g.objects(subject=entity_uri, predicate=design_ns.hasPosition):
-                x = float(g.value(subject=pos_node, predicate=design_ns.x, default=0))
-                y = float(g.value(subject=pos_node, predicate=design_ns.y, default=0))
+            for pos_node in g.objects(subject=entity_uri, predicate=VISU.hasPosition):
+                x = float(g.value(subject=pos_node, predicate=VISU.x, default=0))
+                y = float(g.value(subject=pos_node, predicate=VISU.y, default=0))
                 print(f"  - Setting position: ({x}, {y})")
                 entity_item.setPos(x, y)
 
             # Set rotation
-            rotation_val = g.value(entity_uri, design_ns.rotation, default=0)
+            rotation_val = g.value(entity_uri, VISU.rotation, default=0)
             if rotation_val:
                 print(f"  - Setting rotation: {rotation_val}")
                 entity_item.apply_rotation(int(rotation_val))
@@ -1501,7 +1498,7 @@ class Canvas(QGraphicsView):
                        FILTER (?ref_type IN (ref:BACnetReference, ref:TimeseriesReference))
                    } ORDER BY ?point_uri ?ref_node
                 """
-        qres_refs = g.query(ref_query, initNs={"ref": AppConfig.ref_ns, "rdf": rdflib.RDF})
+        qres_refs = g.query(ref_query, initNs={"ref": BRICK_REF, "rdf": rdflib.RDF})
         print(f"Found {len(qres_refs)} external reference triples")
 
         current_point_uri = None
@@ -1534,10 +1531,10 @@ class Canvas(QGraphicsView):
                 current_point_uri = point_uri
                 current_ref_node = ref_node
                 current_ref_data = {}
-                if ref_type == AppConfig.ref_ns.BACnetReference:
+                if ref_type == BRICK_REF.BACnetReference:
                     current_ref_data['type'] = 'BACnet'
                     print(f"  - New BACnet reference")
-                elif ref_type == AppConfig.ref_ns.TimeseriesReference:
+                elif ref_type == BRICK_REF.TimeseriesReference:
                     current_ref_data['type'] = 'Timeseries'
                     print(f"  - New Timeseries reference")
                 else:
@@ -1549,23 +1546,23 @@ class Canvas(QGraphicsView):
                 prop_name = pred.split('#')[-1].split('/')[-1]  # Get local name
                 print(f"  - Adding property: {prop_name} = {obj}")
                 # Convert specific properties based on schema
-                if pred == AppConfig.bacnet_ns['object-identifier']:
+                if pred == BACNET['object-identifier']:
                     current_ref_data['object-identifier'] = str(obj)
-                elif pred == AppConfig.bacnet_ns['object-name']:
+                elif pred == BACNET['object-name']:
                     current_ref_data['object-name'] = str(obj)
-                elif pred == AppConfig.bacnet_ns['object-type']:
+                elif pred == BACNET['object-type']:
                     current_ref_data['object-type'] = str(obj)
-                elif pred == AppConfig.bacnet_ns.description:
+                elif pred == BACNET.description:
                     current_ref_data['description'] = str(obj)
-                elif pred == AppConfig.bacnet_ns['read-property']:
+                elif pred == BACNET['read-property']:
                     current_ref_data['read-property'] = str(obj)
-                elif pred == AppConfig.brick_ns.BACnetURI:
+                elif pred == BRICK.BACnetURI:
                     current_ref_data['BACnetURI'] = str(obj)
-                elif pred == AppConfig.bacnet_ns.objectOf:
+                elif pred == BACNET.objectOf:
                     current_ref_data['objectOf'] = str(obj)  # Store as string URI
-                elif pred == AppConfig.ref_ns.hasTimeseriesId:
+                elif pred == BRICK_REF.hasTimeseriesId:
                     current_ref_data['timeseriesId'] = str(obj)
-                elif pred == AppConfig.ref_ns.storedAt:
+                elif pred == BRICK_REFBRICK_REF.storedAt:
                     current_ref_data['storedAt'] = str(obj)  # Store as string URI
                 # Add more specific conversions if needed (e.g., boolean/numeric literals)
                 else:
@@ -1599,12 +1596,12 @@ class Canvas(QGraphicsView):
         print("Second pass: Loading visual connections...")
         visual_conn_count = 0
 
-        for conn_uri in g.subjects(rdflib.RDF.type, design_ns.Connection):
+        for conn_uri in g.subjects(rdflib.RDF.type, VISU.Connection):
             print(f"Processing connection: {conn_uri}")
 
             # Get source and target
-            source_uri = g.value(conn_uri, design_ns.sourceEntity)
-            target_uri = g.value(conn_uri, design_ns.targetEntity)
+            source_uri = g.value(conn_uri, VISU.sourceEntity)
+            target_uri = g.value(conn_uri, VISU.targetEntity)
 
             if not source_uri or not target_uri:
                 print(f"  - Skipping: Missing source or target")
@@ -1628,7 +1625,7 @@ class Canvas(QGraphicsView):
             connection.instance_uri = conn_uri
 
             # Set relationship type
-            rel_type_str = g.value(conn_uri, rdflib.URIRef(design_ns + "relationshipType"))
+            rel_type_str = g.value(conn_uri, rdflib.URIRef(VISU + "relationshipType"))
             if rel_type_str:
                 print(f"  - Setting relationship type: {rel_type_str}")
                 for rel_name, rel_uri in BRICK_RELATIONSHIPS.items():
@@ -1640,10 +1637,10 @@ class Canvas(QGraphicsView):
                         break
 
             # Set color
-            for color_node in g.objects(conn_uri, rdflib.URIRef(design_ns + "color")):
-                red_val = g.value(color_node, design_ns.red, default=0)
-                green_val = g.value(color_node, design_ns.green, default=0)
-                blue_val = g.value(color_node, design_ns.blue, default=0)
+            for color_node in g.objects(conn_uri, rdflib.URIRef(VISU + "color")):
+                red_val = g.value(color_node, VISU.red, default=0)
+                green_val = g.value(color_node, VISU.green, default=0)
+                blue_val = g.value(color_node, VISU.blue, default=0)
 
                 # Convert to integers regardless of value
                 red = int(red_val)
@@ -1654,14 +1651,14 @@ class Canvas(QGraphicsView):
                 print(f"  - Setting color: RGB({red}, {green}, {blue})")
 
                 # Set line style
-                style_val = g.value(conn_uri, design_ns.lineStyle)
+                style_val = g.value(conn_uri, VISU.lineStyle)
                 line_style_val = Qt.SolidLine
                 if style_val:
                     line_style_val = Qt.PenStyle(int(style_val))
                     print(f"  - Setting line style: {line_style_val}")
 
                 # Set line width
-                width_val = g.value(conn_uri, design_ns.lineWidth, default=2)
+                width_val = g.value(conn_uri, VISU.lineWidth, default=2)
                 width = int(width_val) if width_val else 2
                 print(f"  - Setting line width: {width}")
 
@@ -1676,10 +1673,10 @@ class Canvas(QGraphicsView):
             # Load joints
             joint_data = []
             joint_count = 0
-            for joint_node in g.objects(conn_uri, rdflib.URIRef(design_ns + "hasJoint")):
-                idx_val = g.value(joint_node, design_ns.jointIndex)
-                x_val = g.value(joint_node, design_ns.x)
-                y_val = g.value(joint_node, design_ns.y)
+            for joint_node in g.objects(conn_uri, rdflib.URIRef(VISU + "hasJoint")):
+                idx_val = g.value(joint_node, VISU.jointIndex)
+                x_val = g.value(joint_node, VISU.x)
+                y_val = g.value(joint_node, VISU.y)
 
                 if idx_val is not None and x_val is not None and y_val is not None:
                     idx = int(idx_val)
@@ -1733,7 +1730,7 @@ class Canvas(QGraphicsView):
                 connection.set_relationship_type(relation_uri)
 
                 # Generate a new instance URI for this connection
-                connection.instance_uri = rdflib.URIRef(f"{design_ns}Connection_{len(processed_relationships)}")
+                connection.instance_uri = rdflib.URIRef(f"{VISUVISU}Connection_{len(processed_relationships)}")
                 print(f"  - Assigned new URI: {connection.instance_uri}")
 
                 # Use default visual settings
