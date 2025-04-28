@@ -70,13 +70,13 @@ def reason_with_reasonable(graph: Graph, new_graph: bool = False) -> Graph:
     return reasoned_graph
 
 
-def validate_graph(graph: Graph, shacl_graph: Graph):
+def validate_graph(data_graph: Graph, shacl_graph: Graph):
     """Validates the graph against SHACL constraints."""
 
-    triples_before = len(graph)
+    triples_before = len(data_graph)
 
     conforms, results_graph, results_text = pyshacl.validate(
-        graph,
+        data_graph,
         shacl_graph=shacl_graph,
         inference='none',
         abort_on_first=False,
@@ -86,7 +86,7 @@ def validate_graph(graph: Graph, shacl_graph: Graph):
         iterate_rules=True,
     )
 
-    triples_after = len(graph)
+    triples_after = len(data_graph)
 
     logger.debug(f"Added {triples_after - triples_before} triples during validation.")
 
@@ -111,16 +111,14 @@ def infer_graph(data_graph: Graph, ont_graph: Graph, shacl_graph: Graph):
         shacl_graph=shacl_graph,
 
         inference='rdfs',  # 'rdfs', 'owlrl', 'none'
-        debug=True,
+        debug=False,
 
         abort_on_first=False,
         allow_infos=True,
         allow_warnings=True,
 
-        meta_shacl=False,
-
         advanced=True,
-        iterate_rules=False,
+        iterate_rules=True,
         inplace=True,
     )
 

@@ -22,7 +22,7 @@ from src.config import AppConfig
 from src.logging import Logger
 from src.app.dialogs import ExternalReferencesDialog
 from src.ifc import extract_topology
-from src.ontologies.namespaces import BLDG, BRICK, BRICK_REF, VISU, BACNET, bind_namespaces
+from src.ontologies.namespaces import RDF, BLDG, REC, BRICK, BRICK_REF, VISU, BACNET, bind_namespaces, short_uuid
 
 # Ontology namespace definitions
 BRICK_RELATIONSHIPS = {
@@ -60,9 +60,9 @@ class PropertyPanel(QWidget):
         layout.addWidget(self.selection_count_label)
 
         # --- Entity Form Group ---
-        self.entity_widget = QWidget() # Container for entity fields
+        self.entity_widget = QWidget()  # Container for entity fields
         self.entity_form = QFormLayout(self.entity_widget)
-        self.entity_form.setContentsMargins(0, 0, 0, 0) # Optional: remove padding
+        self.entity_form.setContentsMargins(0, 0, 0, 0)  # Optional: remove padding
 
         # Type URI field
         self.type_uri_label = QLabel("")
@@ -92,14 +92,14 @@ class PropertyPanel(QWidget):
         self.manage_ext_refs_button.clicked.connect(self._open_external_references_dialog)
         # Add the button spanning both columns in its own row
         self.entity_form.addRow(self.manage_ext_refs_button)
-        self.manage_ext_refs_button.setVisible(False) # Initially hidden
+        self.manage_ext_refs_button.setVisible(False)  # Initially hidden
 
-        layout.addWidget(self.entity_widget) # Add the entity group widget
+        layout.addWidget(self.entity_widget)  # Add the entity group widget
 
         # --- Relationship Form Group ---
-        self.relationship_widget = QWidget() # Container for relationship fields
+        self.relationship_widget = QWidget()  # Container for relationship fields
         self.relationship_form = QFormLayout(self.relationship_widget)
-        self.relationship_form.setContentsMargins(0, 0, 0, 0) # Optional: remove padding
+        self.relationship_form.setContentsMargins(0, 0, 0, 0)  # Optional: remove padding
 
         # Relationship URI
         self.rel_instance_uri_label = QLabel("")
@@ -138,11 +138,11 @@ class PropertyPanel(QWidget):
         self.color_button.clicked.connect(self._choose_connection_color)
         self.relationship_form.addRow(QLabel("<b>Color:</b>"), self.color_button)
 
-        layout.addWidget(self.relationship_widget) # Add the relationship group widget
+        layout.addWidget(self.relationship_widget)  # Add the relationship group widget
 
         # Hide forms initially
         self.relationship_widget.setVisible(False)
-        self.entity_widget.setVisible(False) # Also hide entity form initially
+        self.entity_widget.setVisible(False)  # Also hide entity form initially
 
         # Add stretch to keep forms at top
         layout.addStretch(1)
@@ -155,8 +155,8 @@ class PropertyPanel(QWidget):
         new_label = self.label_edit.text()
         # Prevent updates if multiple items have different labels initially
         if self.label_edit.placeholderText() == "Multiple values...":
-             # Optionally clear placeholder on first edit or require explicit change
-             pass # Or maybe block signal if needed
+            # Optionally clear placeholder on first edit or require explicit change
+            pass  # Or maybe block signal if needed
 
         for item in self.current_selection:
             if isinstance(item, EntityItem):
@@ -182,6 +182,7 @@ class PropertyPanel(QWidget):
     def _show_relationship_form(self):
         """Show the relationship property form group."""
         self.relationship_widget.setVisible(True)
+
     # --- END REVISED Show/Hide Logic ---
 
     def update_properties(self, items=None):
@@ -196,12 +197,12 @@ class PropertyPanel(QWidget):
         if not self.current_selection:
             self.selection_count_label.setText("No items selected")
             # Show entity form in a disabled/empty state
-            self._show_entity_form() # Show the container
+            self._show_entity_form()  # Show the container
             self.type_uri_label.setText("N/A")
             self.instance_uri_label.setText("N/A")
             self.label_edit.clear()
             self.label_edit.setPlaceholderText("")
-            self.label_edit.setEnabled(False) # Disable editing
+            self.label_edit.setEnabled(False)  # Disable editing
             self.position_label.setText("N/A")
             self.rotation_label.setText("N/A")
             # Button remains hidden because it wasn't explicitly shown yet
@@ -226,13 +227,13 @@ class PropertyPanel(QWidget):
         # Handle single item selection
         item = self.current_item
         if isinstance(item, EntityItem):
-            self._update_entity_properties(item) # This calls _show_entity_form
+            self._update_entity_properties(item)  # This calls _show_entity_form
             # Now, specifically manage the button visibility
             if isinstance(item.entity, Point):
                 self.manage_ext_refs_button.setVisible(True)
             # else: button remains hidden (set above)
         elif isinstance(item, ConnectionItem):
-            self._update_connection_properties(item) # This calls _show_relationship_form
+            self._update_connection_properties(item)  # This calls _show_relationship_form
             # Button remains hidden (set above)
 
     def _handle_multiple_selection(self, entity_count, connection_count):
@@ -248,7 +249,7 @@ class PropertyPanel(QWidget):
 
     def _handle_multiple_entities(self, count):
         """Handle when multiple entities are selected."""
-        self._show_entity_form() # Show the entity form container
+        self._show_entity_form()  # Show the entity form container
         self.type_uri_label.setText(f"{count} entities selected")
         self.instance_uri_label.setText("Multiple instances")
         self.position_label.setText("Various positions")
@@ -257,7 +258,7 @@ class PropertyPanel(QWidget):
         entities = [item for item in self.current_selection if isinstance(item, EntityItem)]
         labels = set(entity.label for entity in entities)
 
-        self.label_edit.setEnabled(True) # Allow editing label even for multiple
+        self.label_edit.setEnabled(True)  # Allow editing label even for multiple
         if len(labels) == 1:
             self.label_edit.blockSignals(True)
             self.label_edit.setText(next(iter(labels)))
@@ -272,7 +273,7 @@ class PropertyPanel(QWidget):
 
     def _handle_multiple_connections(self, count):
         """Handle when multiple connections are selected."""
-        self._show_relationship_form() # Show relationship form
+        self._show_relationship_form()  # Show relationship form
         self.rel_instance_uri_label.setText(f"{count} connections selected")
         self.rel_type_uri_label.setText("Multiple connections")
         self.source_entity_label.setText("Various sources")
@@ -291,20 +292,20 @@ class PropertyPanel(QWidget):
                     self.rel_type_combo.blockSignals(False)
                     found = True
                     break
-            if not found: # Handle case where saved type isn't in dropdown
-                 self.rel_type_combo.blockSignals(True)
-                 self.rel_type_combo.setCurrentIndex(-1)
-                 self.rel_type_combo.blockSignals(False)
+            if not found:  # Handle case where saved type isn't in dropdown
+                self.rel_type_combo.blockSignals(True)
+                self.rel_type_combo.setCurrentIndex(-1)
+                self.rel_type_combo.blockSignals(False)
         else:
             # Different types
             self.rel_type_combo.blockSignals(True)
-            self.rel_type_combo.setCurrentIndex(-1) # Indicate multiple types
+            self.rel_type_combo.setCurrentIndex(-1)  # Indicate multiple types
             self.rel_type_combo.blockSignals(False)
         # Button remains hidden
 
     def _handle_mixed_selection(self, entity_count, connection_count):
         """Handle when both entities and connections are selected."""
-        self._show_entity_form() # Show entity form (mostly disabled)
+        self._show_entity_form()  # Show entity form (mostly disabled)
         self.type_uri_label.setText(f"{entity_count} entities, {connection_count} connections")
         self.instance_uri_label.setText("Multiple instances")
         self.position_label.setText("Various positions")
@@ -319,13 +320,13 @@ class PropertyPanel(QWidget):
 
     def _update_entity_properties(self, entity_item):
         """Update the panel with entity properties."""
-        self._show_entity_form() # Ensure container is visible
+        self._show_entity_form()  # Ensure container is visible
         self.type_uri_label.setText(str(entity_item.entity.uri_ref))
         self.instance_uri_label.setText(str(entity_item.instance_uri))
 
         self.label_edit.blockSignals(True)
         self.label_edit.setText(entity_item.label)
-        self.label_edit.setEnabled(True) # Enable label editing
+        self.label_edit.setEnabled(True)  # Enable label editing
         self.label_edit.setPlaceholderText("")
         self.label_edit.blockSignals(False)
 
@@ -339,7 +340,7 @@ class PropertyPanel(QWidget):
 
     def _update_connection_properties(self, connection_item):
         """Update the panel with connection properties."""
-        self._show_relationship_form() # Ensure container is visible
+        self._show_relationship_form()  # Ensure container is visible
         self.rel_instance_uri_label.setText(str(connection_item.instance_uri))
         self.rel_type_uri_label.setText(str(connection_item.relationship_type))
 
@@ -358,11 +359,10 @@ class PropertyPanel(QWidget):
                 self.rel_type_combo.blockSignals(False)
                 found = True
                 break
-        if not found: # Clear combo if type not found
+        if not found:  # Clear combo if type not found
             self.rel_type_combo.blockSignals(True)
             self.rel_type_combo.setCurrentIndex(-1)
             self.rel_type_combo.blockSignals(False)
-
 
         # Set color button background
         current_color = connection_item.pen().color()
@@ -372,20 +372,19 @@ class PropertyPanel(QWidget):
 
     def _update_relationship_type(self, index):
         """Update the relationship type for all selected connections."""
-        if index < 0 or not self.current_selection: # Check index and selection
+        if index < 0 or not self.current_selection:  # Check index and selection
             return
 
         rel_type = self.rel_type_combo.itemData(index)
-        if not rel_type: # Ensure data is valid
-             return
+        if not rel_type:  # Ensure data is valid
+            return
 
         for item in self.current_selection:
             if isinstance(item, ConnectionItem):
                 item.set_relationship_type(rel_type)
         # Update the display for the current item if it's a connection
         if isinstance(self.current_item, ConnectionItem):
-             self.rel_type_uri_label.setText(str(rel_type))
-
+            self.rel_type_uri_label.setText(str(rel_type))
 
     def _choose_connection_color(self):
         """Open color dialog to choose connection color for all selected connections."""
@@ -424,13 +423,14 @@ class PropertyPanel(QWidget):
     def _open_external_references_dialog(self):
         """Open the dialog to manage external references for the selected Point."""
         # Check should be reliable now due to button visibility logic
-        if len(self.current_selection) == 1 and isinstance(self.current_item, EntityItem) and isinstance(self.current_item.entity, Point):
+        if len(self.current_selection) == 1 and isinstance(self.current_item, EntityItem) and isinstance(
+                self.current_item.entity, Point):
             point_item = self.current_item
             dialog = ExternalReferencesDialog(point_item, self)
-            dialog.exec_() # Show modally
+            dialog.exec_()  # Show modally
         else:
-             # Fallback warning
-             QMessageBox.warning(self, "Selection Error", "Please select a single Point entity to manage references.")
+            # Fallback warning
+            QMessageBox.warning(self, "Selection Error", "Please select a single Point entity to manage references.")
 
 
 class EntityBrowser(QTreeWidget):
@@ -721,7 +721,7 @@ class Canvas(QGraphicsView):
         if self.hovered_port:
             # Reset the visual cue regardless of success/failure
             # self.hovered_port.setBrush(self.DEFAULT_PORT_BRUSH) # Old way
-            self.hovered_port.setHovered(False) # <--- Use new method
+            self.hovered_port.setHovered(False)  # <--- Use new method
             self.hovered_port = None
 
         if target_port:  # Check if we found a valid target port earlier
@@ -735,7 +735,9 @@ class Canvas(QGraphicsView):
             target_is_point = isinstance(target_entity.entity, Point)
 
             if target_is_point:
-                self.temp_connection.relationship_type = BRICK_RELATIONSHIPS[""]
+                self.temp_connection.relationship_type = BRICK_RELATIONSHIPS["hasPoint"]
+            if source_is_point:
+                self.temp_connection.relationship_type = BRICK_RELATIONSHIPS["isPointOf"]
 
             self.show_message("Connection created")  # Or more specific message
             self.scene.clearSelection()
@@ -1317,29 +1319,57 @@ class Canvas(QGraphicsView):
 
                 if isinstance(item.entity, Point) and item.external_references:
                     for ref_data in item.external_references:
-                        ref_bnode = rdflib.BNode() # Blank node for the reference details
-                        g.add((item.instance_uri, BRICK_REF.hasExternalReference, ref_bnode))
+                        ref_node = BLDG[short_uuid()]
+
+                        g.add((item.instance_uri, BRICK_REF.hasExternalReference, ref_node))
 
                         ref_type = ref_data.get('type')
                         if ref_type == "BACnet":
-                            g.add((ref_bnode, rdflib.RDF.type, BRICK_REF.BACnetReference))
+                            g.add((ref_node, rdflib.RDF.type, BRICK_REF.BACnetReference))
                             option = ref_data.get('option', 1)
                             if option == 1:
-                                if 'object-identifier' in ref_data: g.add((ref_bnode, BACNET['object-identifier'], rdflib.Literal(ref_data['object-identifier'])))
-                                if 'object-name' in ref_data: g.add((ref_bnode, BACNET['object-name'], rdflib.Literal(ref_data['object-name'])))
-                                if 'object-type' in ref_data: g.add((ref_bnode, BACNET['object-type'], rdflib.Literal(ref_data['object-type']))) # Maybe map to BACnet type URIs later?
-                                if 'description' in ref_data: g.add((ref_bnode, BACNET.description, rdflib.Literal(ref_data['description'])))
-                                if 'read-property' in ref_data: g.add((ref_bnode, BACNET['read-property'], rdflib.Literal(ref_data['read-property'])))
-                                if 'objectOf' in ref_data: g.add((ref_bnode, BACNET.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
+                                if 'object-identifier' in ref_data:
+                                    g.add(
+                                        (ref_node, BACNET['object-identifier'], rdflib.Literal(ref_data['object-identifier']))
+                                    )
+                                if 'object-name' in ref_data:
+                                    g.add(
+                                        (ref_node, BACNET['object-name'], rdflib.Literal(ref_data['object-name']))
+                                    )
+                                if 'object-type' in ref_data:
+                                    g.add(
+                                        (ref_node, BACNET['object-type'], rdflib.Literal(ref_data['object-type']))
+                                    )
+                                if 'description' in ref_data:
+                                    g.add(
+                                        (ref_node, BACNET.description, rdflib.Literal(ref_data['description']))
+                                    )
+                                if 'read-property' in ref_data:
+                                    g.add(
+                                        (ref_node, BACNET['read-property'], rdflib.Literal(ref_data['read-property']))
+                                    )
+                                if 'objectOf' in ref_data: g.add(
+                                    (ref_node, BACNET.objectOf, rdflib.URIRef(ref_data['objectOf'])))  # Assume URI
                             elif option == 2:
-                                if 'BACnetURI' in ref_data: g.add((ref_bnode, BRICK.BACnetURI, rdflib.Literal(ref_data['BACnetURI'])))
-                                if 'objectOf' in ref_data: g.add((ref_bnode, BACNET.objectOf, rdflib.URIRef(ref_data['objectOf']))) # Assume URI
+                                if 'BACnetURI' in ref_data:
+                                    g.add(
+                                        (ref_node, BRICK.BACnetURI, rdflib.Literal(ref_data['BACnetURI']))
+                                    )
+                                if 'objectOf' in ref_data:
+                                    g.add(
+                                        (ref_node, BACNET.objectOf, rdflib.URIRef(ref_data['objectOf']))
+                                    )
 
                         elif ref_type == "Timeseries":
-                            g.add((ref_bnode, rdflib.RDF.type, BRICK_REF.TimeseriesReference))
-                            if 'timeseriesId' in ref_data: g.add((ref_bnode, BRICK_REF.hasTimeseriesId, rdflib.Literal(ref_data['timeseriesId'])))
-                            if 'storedAt' in ref_data: g.add((ref_bnode, BRICK_REF.storedAt, rdflib.URIRef(ref_data['storedAt']))) # Store as URI
-
+                            g.add((ref_node, rdflib.RDF.type, BRICK_REF.TimeseriesReference))
+                            if 'timeseriesId' in ref_data:
+                                g.add(
+                                    (ref_node, BRICK_REF.hasTimeseriesId, rdflib.Literal(ref_data['timeseriesId']))
+                                )
+                            if 'storedAt' in ref_data:
+                                g.add(
+                                    (ref_node, BRICK_REF.storedAt, rdflib.Literal(ref_data['storedAt']))
+                                )
 
         # Store all connections
         for item in self.scene.items():
@@ -1438,6 +1468,10 @@ class Canvas(QGraphicsView):
             if obj == VISU.Connection:
                 continue
 
+            if not str(obj).startswith(str(BRICK)) and not str(obj).startswith(str(REC)):
+                # Skip non-BRICK entities
+                continue
+
             # Check if it's an entity type from our library
             try:
                 # Create a new entity item
@@ -1489,17 +1523,19 @@ class Canvas(QGraphicsView):
                 entity_item.label = str(label)
 
         print("Loading external references...")
+        # Query modification: Make rdf:type optional, remove the type filter.
         ref_query = """
-                   SELECT ?point_uri ?ref_node ?ref_type ?pred ?obj
-                   WHERE {
-                       ?point_uri ref:hasExternalReference ?ref_node .
-                       ?ref_node rdf:type ?ref_type .
-                       ?ref_node ?pred ?obj .
-                       FILTER (?ref_type IN (ref:BACnetReference, ref:TimeseriesReference))
-                   } ORDER BY ?point_uri ?ref_node
-                """
-        qres_refs = g.query(ref_query, initNs={"ref": BRICK_REF, "rdf": rdflib.RDF})
-        print(f"Found {len(qres_refs)} external reference triples")
+           SELECT ?point_uri ?ref_node ?ref_type ?pred ?obj
+           WHERE {
+               ?point_uri ref:hasExternalReference ?ref_node .
+               ?ref_node ?pred ?obj .
+               OPTIONAL { ?ref_node rdf:type ?ref_type . }
+           } ORDER BY ?point_uri ?ref_node
+        """
+        # Make sure namespaces used in the query (ref, rdf) are defined correctly
+        qres_refs = g.query(ref_query, initNs={"ref": BRICK_REF, "rdf": RDF})
+        print(f"Found {len(list(qres_refs))} potential external reference triples") # Use list() to consume generator for count
+        qres_refs = g.query(ref_query, initNs={"ref": BRICK_REF, "rdf": RDF}) # Re-run query
 
         current_point_uri = None
         current_ref_node = None
@@ -1508,84 +1544,132 @@ class Canvas(QGraphicsView):
 
         for row in qres_refs:
             point_uri, ref_node, ref_type, pred, obj = row
-            print(f"Processing reference: {point_uri} -> {ref_node} ({ref_type})")
+            # print(f"Processing triple: {point_uri} -> {ref_node} [{pred} = {obj}] TypeHint: {ref_type}") # Debug
 
-            # Find the corresponding EntityItem
             entity_item = loaded_entities.get(str(point_uri))
-            if not entity_item or not isinstance(entity_item.entity, Point):
-                print(f"  - Skipping: Not a loaded Point entity")
-                continue  # Skip if point not loaded or not a Point type
+            # Ensure the entity is loaded AND is of a type that *can* have external refs (e.g., Point)
+            # Adjust the 'isinstance(entity_item.entity, Point)' check based on your actual class structure
+            if not entity_item or not hasattr(entity_item, 'entity') or not isinstance(entity_item.entity, Point):
+                # print(f"  - Skipping: Entity {point_uri} not loaded or not a Point type.")
+                continue
 
-            # Check if we are starting a new reference node
+            # Check if we are starting a new reference node for the current point
             if ref_node != current_ref_node:
-                # Save the previous reference data if it exists
-                if current_ref_node and current_ref_data:
-                    current_ref_data['id'] = str(uuid.uuid4())  # Add internal ID on load
+                # Save the previous reference data if it exists and we could determine its type
+                if current_ref_node and current_ref_data and current_ref_data.get('type'):
+                    current_ref_data['id'] = str(uuid.uuid4()) # Add internal ID
+                    # Ensure the entity for the previous reference still exists
                     entity_item_prev = loaded_entities.get(str(current_point_uri))
-                    if entity_item_prev:
-                        print(f"  - Adding reference to entity {current_point_uri}")
+                    if entity_item_prev and isinstance(entity_item_prev.entity, Point):
+                        print(f"  - Adding reference ({current_ref_data['type']}) to entity {current_point_uri}")
                         entity_item_prev.external_references.append(current_ref_data)
                         ref_count += 1
+                    else:
+                         print(f"  - Warning: Could not find valid previous entity {current_point_uri} to attach reference.")
 
-                # Start new reference data
+
+                # Start new reference data structure
                 current_point_uri = point_uri
                 current_ref_node = ref_node
-                current_ref_data = {}
+                current_ref_data = {'properties': {}} # Store generic properties here
+                # Use explicit rdf:type as a hint if available
                 if ref_type == BRICK_REF.BACnetReference:
                     current_ref_data['type'] = 'BACnet'
-                    print(f"  - New BACnet reference")
+                    print(f"  - New Reference Node {ref_node}: Type hint BACnet")
                 elif ref_type == BRICK_REF.TimeseriesReference:
                     current_ref_data['type'] = 'Timeseries'
-                    print(f"  - New Timeseries reference")
+                    print(f"  - New Reference Node {ref_node}: Type hint Timeseries")
                 else:
-                    current_ref_data['type'] = 'Unknown'  # Should not happen based on query filter
-                    print(f"  - New Unknown reference type (unexpected)")
+                    current_ref_data['type'] = None # Mark type as undetermined, try to infer
+                    print(f"  - New Reference Node {ref_node}: No type hint or unknown ({ref_type})")
 
-            # Add property to current reference data (skip rdf:type)
-            if pred != rdflib.RDF.type:
-                prop_name = pred.split('#')[-1].split('/')[-1]  # Get local name
-                print(f"  - Adding property: {prop_name} = {obj}")
-                # Convert specific properties based on schema
+
+            # Process the current property (pred, obj) for the current_ref_node
+
+            # Skip rdf:type itself, we use it as a hint or infer type otherwise
+            if pred == RDF.type:
+                continue
+
+            prop_local_name = pred.split('#')[-1].split('/')[-1] # Get local name
+            prop_value = str(obj) # Store value as string by default
+
+            # --- Type Inference (if not already set by rdf:type hint) ---
+            if current_ref_data.get('type') is None:
+                if str(pred).startswith(str(BACNET)):
+                    current_ref_data['type'] = 'BACnet'
+                    print(f"    - Inferred type BACnet from property: {prop_local_name}")
+                elif pred == BRICK_REF.hasTimeseriesId or pred == BRICK_REF.storedAt: # Add other TS props if needed
+                    current_ref_data['type'] = 'Timeseries'
+                    print(f"    - Inferred type Timeseries from property: {prop_local_name}")
+                # Add more inference rules if needed for other ref types
+
+            # --- Store Specific Properties ---
+            # Add properties relevant to the determined or inferred type
+            if current_ref_data.get('type') == 'BACnet':
+                print(f"    - Storing BACnet property: {prop_local_name} = {prop_value}")
                 if pred == BACNET['object-identifier']:
-                    current_ref_data['object-identifier'] = str(obj)
+                    current_ref_data['object-identifier'] = prop_value
                 elif pred == BACNET['object-name']:
-                    current_ref_data['object-name'] = str(obj)
+                    current_ref_data['object-name'] = prop_value
                 elif pred == BACNET['object-type']:
-                    current_ref_data['object-type'] = str(obj)
-                elif pred == BACNET.description:
-                    current_ref_data['description'] = str(obj)
+                    current_ref_data['object-type'] = prop_value
+                elif pred == BACNET.description: # Check namespace definition for BACNET.description
+                    current_ref_data['description'] = prop_value
                 elif pred == BACNET['read-property']:
-                    current_ref_data['read-property'] = str(obj)
-                elif pred == BRICK.BACnetURI:
-                    current_ref_data['BACnetURI'] = str(obj)
-                elif pred == BACNET.objectOf:
-                    current_ref_data['objectOf'] = str(obj)  # Store as string URI
-                elif pred == BRICK_REF.hasTimeseriesId:
-                    current_ref_data['timeseriesId'] = str(obj)
-                elif pred == BRICK_REFBRICK_REF.storedAt:
-                    current_ref_data['storedAt'] = str(obj)  # Store as string URI
-                # Add more specific conversions if needed (e.g., boolean/numeric literals)
+                    current_ref_data['read-property'] = prop_value
+                elif pred == BACNET.BACnetURI: # Check namespace definition for BACNET.BACnetURI
+                    current_ref_data['BACnetURI'] = prop_value
+                elif pred == BACNET.objectOf: # Check namespace definition for BACNET.objectOf
+                    current_ref_data['objectOf'] = prop_value # Store URI as string
+                # Store others generically if needed, or ignore
                 else:
-                    current_ref_data[prop_name] = str(obj)  # Default to string
+                    current_ref_data['properties'][prop_local_name] = prop_value
 
-            # Determine BACnet option based on properties found
+            elif current_ref_data.get('type') == 'Timeseries':
+                print(f"    - Storing Timeseries property: {prop_local_name} = {prop_value}")
+                if pred == BRICK_REF.hasTimeseriesId:
+                    current_ref_data['timeseriesId'] = prop_value
+                elif pred == BRICK_REF.storedAt:
+                    current_ref_data['storedAt'] = prop_value # Store URI as string
+                # Store others generically if needed, or ignore
+                else:
+                    current_ref_data['properties'][prop_local_name] = prop_value
+
+            else: # Unknown type or type not yet inferred
+                 # Store properties generically in case type is inferred later by another property
+                 current_ref_data['properties'][prop_local_name] = prop_value
+                 # print(f"    - Storing generic property pending type inference: {prop_local_name} = {prop_value}")
+
+
+            # --- Determine BACnet Option (based on stored properties) ---
             if current_ref_data.get('type') == 'BACnet':
                 if 'BACnetURI' in current_ref_data:
-                    current_ref_data['option'] = 2
-                    print(f"  - Setting BACnet option 2 (URI)")
+                    if current_ref_data.get('option') != 2:
+                         print(f"    - Setting BACnet option 2 (URI)")
+                         current_ref_data['option'] = 2
                 elif 'object-identifier' in current_ref_data:
-                    current_ref_data['option'] = 1
-                    print(f"  - Setting BACnet option 1 (object-identifier)")
-                # else: option remains undetermined until more props are read
+                    # Set option 1 only if option 2 isn't already set (URI takes precedence)
+                    if current_ref_data.get('option') is None:
+                         print(f"    - Setting BACnet option 1 (object-identifier)")
+                         current_ref_data['option'] = 1
 
-        # Add the last processed reference
-        if current_ref_node and current_ref_data:
-            print(f"Adding final reference for {current_point_uri}")
+
+        # Add the last processed reference after the loop finishes
+        if current_ref_node and current_ref_data and current_ref_data.get('type'):
             current_ref_data['id'] = str(uuid.uuid4())
             entity_item_last = loaded_entities.get(str(current_point_uri))
+            # Check again if the entity is valid and a Point
             if entity_item_last and isinstance(entity_item_last.entity, Point):
+                print(f"Adding final reference ({current_ref_data['type']}) for {current_point_uri}")
                 entity_item_last.external_references.append(current_ref_data)
                 ref_count += 1
+            elif not entity_item_last:
+                 print(f"Warning: Could not find entity {current_point_uri} for final reference.")
+            elif not isinstance(entity_item_last.entity, Point):
+                 print(f"Warning: Entity {current_point_uri} is not a Point, skipping final reference attachment.")
+        elif current_ref_node and current_ref_data and not current_ref_data.get('type'):
+            print(f"Warning: Could not determine type for final reference node {current_ref_node} associated with {current_point_uri}. Discarding.")
+
 
         print(f"Added {ref_count} external references")
 
@@ -1730,7 +1814,7 @@ class Canvas(QGraphicsView):
                 connection.set_relationship_type(relation_uri)
 
                 # Generate a new instance URI for this connection
-                connection.instance_uri = rdflib.URIRef(f"{VISUVISU}Connection_{len(processed_relationships)}")
+                connection.instance_uri = rdflib.URIRef(f"{VISU}Connection_{len(processed_relationships)}")
                 print(f"  - Assigned new URI: {connection.instance_uri}")
 
                 # Use default visual settings

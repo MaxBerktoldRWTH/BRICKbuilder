@@ -14,7 +14,7 @@ REC = Namespace("https://w3id.org/rec#")
 VISU = Namespace("http://example.org/visualization#")
 BRICK_TAG = Namespace("https://brickschema.org/schema/BrickTag#")
 BRICK_REF = Namespace("https://brickschema.org/schema/Brick/ref#")
-BACNET = rdflib.Namespace("http://data.ashrae.org/bacnet/2020#")
+BACNET = Namespace("http://data.ashrae.org/bacnet/2020#")
 
 __all__ = [
     "S223",

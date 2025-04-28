@@ -6,6 +6,7 @@ __all__ = [
     "RDF_GRAPH",
     "OWL_GRAPH",
     "BRICK_GRAPH",
+    "REC_GRAPH",
 ]
 
 
@@ -18,6 +19,10 @@ def S223_GRAPH():
 
 def BRICK_GRAPH():
     return Graph().parse(cur_dir + r"\files\BRICK.ttl", format="turtle")
+
+
+def REC_GRAPH():
+    return Graph().parse(cur_dir + r"\files\REC.ttl", format="turtle")
 
 
 def RDF_GRAPH():

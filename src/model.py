@@ -2,7 +2,7 @@ import rdflib
 
 import typing
 
-from src.ontologies.namespaces import BRICK
+from src.ontologies.namespaces import BRICK, REC
 
 
 def split_uri(uri: str | rdflib.URIRef) -> [str, str]:
@@ -604,9 +604,24 @@ class EntityLibrary:
         category=["BRICK", "Point", "Sensor"],
     )
 
+    energy_sensor = Point(
+        uri_ref=BRICK.Energy_Sensor,
+        category=["BRICK", "Point", "Sensor"],
+    )
+
     temperature_setpoint = Point(
         uri_ref=BRICK.Temperature_Setpoint,
         category=["BRICK", "Point", "Setpoint"],
+    )
+
+    Position_Command = Point(
+        uri_ref=BRICK.Position_Command,
+        category=["BRICK", "Point", "Command"],
+    )
+
+    Speed_Command = Point(
+        uri_ref=BRICK.Speed_Command,
+        category=["BRICK", "Point", "Command"],
     )
 
     Position_Sensor = Point(
@@ -614,13 +629,13 @@ class EntityLibrary:
         category=["BRICK", "Point", "Sensor"],
     )
 
-    Position_Setpoint = Point(
-        uri_ref=BRICK.Position_Setpoint,
-        category=["BRICK", "Point", "Setpoint"],
+    Power_Sensor = Point(
+        uri_ref=BRICK.Power_Sensor,
+        category=["BRICK", "Point", "Sensor"],
     )
 
     Room = Entity(
-        uri_ref=rdflib.URIRef("https://doc.realestatecore.io/4.0/#Room"),
+        uri_ref=REC.Room,
         svg_data="""
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
                 <rect width="50" height="50" x="0" y="0" fill="white" stroke="black" stroke-width="2"/> 
@@ -631,10 +646,10 @@ class EntityLibrary:
     )
 
     Zone = Entity(
-        uri_ref=rdflib.URIRef("https://doc.realestatecore.io/4.0/#Zone"),
+        uri_ref=REC.Zone,
         svg_data="""
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
-                <rect width="50" height="50" x="0" y="0" fill="white" stroke="black" stroke-width="2"/> 
+                <rect width="50" height="50" x="0" y="0" fill="white" stroke="black" stroke-width="2" stroke-dasharray="5 5"/> 
             </svg>
         """,
         category=["REC", "Space", "Zones"],
@@ -642,7 +657,7 @@ class EntityLibrary:
     )
 
     HVACZone = Entity(
-        uri_ref=rdflib.URIRef("https://doc.realestatecore.io/4.0/#HVAC_Zone"),
+        uri_ref=REC.HVACZone,
         svg_data="""
             <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
                 <rect width="50" height="100" x="0" y="0" fill="white" stroke="black" stroke-width="2"/> 
@@ -653,7 +668,7 @@ class EntityLibrary:
     )
 
     level = Entity(
-        uri_ref=rdflib.URIRef("https://doc.realestatecore.io/4.0/#Level"),
+        uri_ref=REC.Level,
         svg_data="""
             <svg width="200" height="50" xmlns="http://www.w3.org/2000/svg">
                 <rect width="200" height="50" x="0" y="0" fill="white" stroke="black" stroke-width="2"/> 
