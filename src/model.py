@@ -624,6 +624,16 @@ class EntityLibrary:
         category=["BRICK", "Point", "Command"],
     )
 
+    Valve_Command = Point(
+        uri_ref=BRICK.Valve_Command,
+        category=["BRICK", "Point", "Command"],
+    )
+
+    Enable_Command = Point(
+        uri_ref=BRICK.Enable_Command ,
+        category=["BRICK", "Point", "Command"],
+    )
+
     Position_Sensor = Point(
         uri_ref=BRICK.Position_Sensor,
         category=["BRICK", "Point", "Sensor"],
