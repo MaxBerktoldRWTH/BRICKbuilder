@@ -22,7 +22,7 @@ class EntityItem(QGraphicsSvgItem):
         # Generate a unique instance URI
         self.instance_uri = BLDG[short_uuid()]
         self.label = ""
-        self.external_references: list[dict] = []
+        self.external_reference: dict | None = None
 
         # Create SVG renderer
         self.renderer = QSvgRenderer(QByteArray(self.entity.svg_data.encode()))
@@ -106,6 +106,24 @@ class EntityItem(QGraphicsSvgItem):
         """Rotate the entity by 90 degrees clockwise around its center."""
 
         self.apply_rotation((self.rotation_angle + 90) % 360)
+
+    def set_external_reference(self, ref_data: dict | None):
+        """Sets or clears the external reference."""
+        self.external_reference = ref_data
+        # Add a unique internal ID if creating a new reference for easier management if needed later,
+        # though less critical now with only one.
+        if self.external_reference and 'id' not in self.external_reference:
+             self.external_reference['id'] = short_uuid()
+
+    def get_external_reference(self) -> dict | None:
+        """Gets the external reference data."""
+
+        return self.external_reference
+
+    def clear_external_reference(self):
+        """Clears the external reference."""
+
+        self.external_reference = None
 
 
 class PortItem(QGraphicsEllipseItem):
