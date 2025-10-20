@@ -44,6 +44,7 @@ __all__ = [
 bindings = {
     RDF: "rdf",
     RDFS: "rdfs",
+    BACNET: "bacnet",
     XSD: "xsd",
     S223: "s223",
     BRICK: "brick",
