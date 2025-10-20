@@ -1,9 +1,8 @@
 import rdflib
 
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QAction, QToolBar,
+    QMainWindow, QAction, QToolBar, QFileDialog,
     QDockWidget, QMenu, QMessageBox, QToolButton,
-    QFileDialog,
 )
 from PyQt5.QtGui import (
     QDragEnterEvent, QDragMoveEvent, QDropEvent,

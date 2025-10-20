@@ -705,3 +705,52 @@ if __name__ == '__main__':
 
     for e in EntityLibrary.get_all_entities():
         print(e.uri_ref)
+
+    from pathlib import Path
+    import re
+
+    library_class = EntityLibrary
+    output_directory = "svg_entities"
+
+    # Create output directory if it doesn't exist
+    output_path = Path(output_directory)
+    output_path.mkdir(exist_ok=True)
+
+    saved_files = []
+
+    # Get all entities from the library
+    entities = library_class.get_all_entities()
+
+    for entity in entities:
+        # Skip entities without SVG data
+        if not hasattr(entity, 'svg_data') or not entity.svg_data:
+            continue
+
+        # Generate filename from the entity's class attribute name
+        entity_name = None
+        for attr_name, attr_value in library_class.__dict__.items():
+            if attr_value is entity:
+                entity_name = attr_name
+                break
+
+        if not entity_name:
+            # Fallback: use URI reference
+            entity_name = str(entity.uri_ref).split('/')[-1].split('#')[-1]
+
+        # Clean filename (remove invalid characters)
+        filename = re.sub(r'[<>:"/\\|?*]', '_', entity_name) + '.svg'
+        file_path = output_path / filename
+
+        # Clean up the SVG data (remove extra whitespace and indentation)
+        svg_content = entity.svg_data.strip()
+
+        # Write SVG file
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(svg_content)
+            saved_files.append(str(file_path))
+            print(f"Saved: {filename}")
+        except Exception as e:
+            print(f"Error saving {filename}: {e}")
+
+    print(f"\nSaved {len(saved_files)} SVG files to '{output_directory}' directory")

@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QPointF, QByteArray
 from PyQt5.QtGui import QPen, QBrush, QPainterPath, QPolygonF, QTransform
 from PyQt5.QtSvg import QSvgRenderer, QGraphicsSvgItem
 
+import src.ontologies.graphs
 # Local imports
 from src.model import EntityLibrary, Point
 from src.config import AppConfig
@@ -135,7 +136,7 @@ class PortItem(QGraphicsEllipseItem):
     DEFAULT_BRUSH = QBrush(Qt.gray)
     HOVER_BRUSH = QBrush(Qt.darkGray)
 
-    def __init__(self, parent=None):
+    def __init__(self, parent: EntityItem):
         super().__init__(-4, -4, 8, 8, parent)
 
         self.setAcceptHoverEvents(True)
@@ -149,7 +150,7 @@ class PortItem(QGraphicsEllipseItem):
 
         self.connections = []
         self.temp_connection = None
-        self.entity_item = parent
+        self.entity_item: EntityItem = parent
 
         self._is_hovered = False
 
@@ -392,8 +393,9 @@ class ConnectionItem(QGraphicsPathItem):
         self.current_end_pos = pos
         self.update_position()
 
-    def set_target_port(self, target_port):
+    def set_target_port(self, target_port: PortItem):
         """Set the target port and finalize the connection."""
+
         # Remove from previous target if exists
         if self.target_port:
             self.target_port.remove_connection(self)
