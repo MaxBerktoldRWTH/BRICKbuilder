@@ -1,0 +1,26 @@
+@prefix bldg: <http://example.org/building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix visu: <http://example.org/visualization#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bldg:zJzLJFnl a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPoint ;
+    visu:sourceEntity bldg:DQwNbCtj ;
+    visu:targetEntity bldg:YTOftSuh .
+
+bldg:DQwNbCtj a brick:Radiator ;
+    visu:hasPosition [ visu:x 6.25e+02 ;
+            visu:y 7e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPoint bldg:YTOftSuh .
+
+bldg:YTOftSuh a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 6.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+

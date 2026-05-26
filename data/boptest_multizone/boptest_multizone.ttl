@@ -1,0 +1,1181 @@
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix bldg: <http://example.org/building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rec: <https://w3id.org/rec#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix visu: <http://example.org/visualization#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bldg:98a80a7c-0537-43fc-8b12-fa16b7c80096 a brick:Temperature_Setpoint ;
+    rdfs:label "Liv"^^xsd:string ;
+    visu:hasPosition [ visu:x 4.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    ref:hasExternalReference bldg:gaJwOBem .
+
+bldg:AowxOCia a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "900.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:35be2a77-5c31-478c-b1f1-22936f95ca8f ;
+    visu:targetEntity bldg:lJoacthy .
+
+bldg:BrIxluwj a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:kpviCZlL ;
+    visu:targetEntity bldg:JLArAlMx .
+
+bldg:DCVyGFXX a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "1025.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:SIYrgTlg ;
+    visu:targetEntity bldg:dqeTkgkE .
+
+bldg:DUfhNAqg a brick:Temperature_Sensor ;
+    visu:hasPosition [ visu:x 1.0125e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:DnzJFxhT a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isLocationOf ;
+    visu:sourceEntity bldg:MFpFXqpt ;
+    visu:targetEntity bldg:218fa387-d384-47d0-b51d-303392542fb8 .
+
+bldg:DvyScwAU a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "875.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:gHmntqxZ ;
+    visu:targetEntity bldg:lJoacthy .
+
+bldg:FULhDhCq a brick:Temperature_Sensor ;
+    visu:hasPosition [ visu:x 8.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:FsFZiAVl a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:kpviCZlL ;
+    visu:targetEntity bldg:lJoacthy .
+
+bldg:IsqMlULO a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "625.0"^^xsd:float ;
+            visu:y "650.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:lniBLrfp ;
+    visu:targetEntity bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e .
+
+bldg:NFGEMGEb a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 6.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:NsOxIwGj a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "1050.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:2fa1abef-338c-4159-b852-c336e1f8d559 ;
+    visu:targetEntity bldg:dqeTkgkE .
+
+bldg:OMpZndMM a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:lVjKZLHX ;
+    visu:targetEntity bldg:sXMsRcxF .
+
+bldg:QPEyuQVg a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isLocationOf ;
+    visu:sourceEntity bldg:dqeTkgkE ;
+    visu:targetEntity bldg:2621fa11-2704-4be7-98de-1a454c3160b6 .
+
+bldg:QVsbGAre a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "1200.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:mEezrdUZ ;
+    visu:targetEntity bldg:MFpFXqpt .
+
+bldg:RJWwIzyD a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isLocationOf ;
+    visu:sourceEntity bldg:TdPUYWQN ;
+    visu:targetEntity bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 .
+
+bldg:RRFBJvSW a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:kpviCZlL ;
+    visu:targetEntity bldg:QSMoKvxV .
+
+bldg:SgPcOAaW a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "425.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:iRPkgbFM ;
+    visu:targetEntity bldg:QSMoKvxV .
+
+bldg:TLJmMogM a brick:Temperature_Setpoint ;
+    visu:hasPosition [ visu:x 6.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:YCXVwqrq a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:aWXxrZBk .
+
+bldg:YpcLlEZJ a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "400.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:TliyjjPi ;
+    visu:targetEntity bldg:QSMoKvxV .
+
+bldg:ZKORdHws a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "600.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:8e0767a8-1d5c-4928-88d1-62d7d615ef84 ;
+    visu:targetEntity bldg:JLArAlMx .
+
+bldg:aAKOWFIK a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "1225.0"^^xsd:float ;
+            visu:y "650.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:NtCkRWid ;
+    visu:targetEntity bldg:218fa387-d384-47d0-b51d-303392542fb8 .
+
+bldg:aKJZWoWh a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 255 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "350.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:feeds ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 .
+
+bldg:cWQtwiqt a brick:Position_Command ;
+    visu:hasPosition [ visu:x 5.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:cgSuJNDQ a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:kpviCZlL ;
+    visu:targetEntity bldg:TdPUYWQN .
+
+bldg:efvQlYsc a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:kpviCZlL ;
+    visu:targetEntity bldg:dqeTkgkE .
+
+bldg:fKpwwFry a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 255 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "350.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:feeds ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:04958f29-f892-41bf-97a6-83c9d57faf90 .
+
+bldg:foMLogiv a brick:Temperature_Setpoint ;
+    visu:hasPosition [ visu:x 1.0375e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:helkhWYt a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 255 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "350.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:feeds ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 .
+
+bldg:iYdBGfNA a brick:Position_Command ;
+    visu:hasPosition [ visu:x 9.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:jWAZTWTR a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 255 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "350.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:feeds ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e .
+
+bldg:jcvUdotL a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "750.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:FcrRQzAU ;
+    visu:targetEntity bldg:TdPUYWQN .
+
+bldg:jdNlVPYO a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 1.0875e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:kiHhAGBG a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 255 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "350.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:feeds ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:2621fa11-2704-4be7-98de-1a454c3160b6 .
+
+bldg:lwUFPQam a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isLocationOf ;
+    visu:sourceEntity bldg:JLArAlMx ;
+    visu:targetEntity bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e .
+
+bldg:mAVvRZDt a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "725.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:qHvZWExi ;
+    visu:targetEntity bldg:TdPUYWQN .
+
+bldg:mcMDInxQ a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "575.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:cdansDxA ;
+    visu:targetEntity bldg:JLArAlMx .
+
+bldg:mljQhjlB a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 255 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "350.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:feeds ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:218fa387-d384-47d0-b51d-303392542fb8 .
+
+bldg:pSwyagXZ a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "925.0"^^xsd:float ;
+            visu:y "650.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:CFJlzCCk ;
+    visu:targetEntity bldg:04958f29-f892-41bf-97a6-83c9d57faf90 .
+
+bldg:rTENoEya a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 4.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 .
+
+bldg:sFtncvdX a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:kpviCZlL ;
+    visu:targetEntity bldg:MFpFXqpt .
+
+bldg:tQlwWsTE a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isLocationOf ;
+    visu:sourceEntity bldg:lJoacthy ;
+    visu:targetEntity bldg:04958f29-f892-41bf-97a6-83c9d57faf90 .
+
+bldg:uefBNMSN a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "475.0"^^xsd:float ;
+            visu:y "625.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:mXyqICfi ;
+    visu:targetEntity bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 .
+
+bldg:urimAqXM a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "775.0"^^xsd:float ;
+            visu:y "650.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:giMJtLtR ;
+    visu:targetEntity bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 .
+
+bldg:vCMTnTxU a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isLocationOf ;
+    visu:sourceEntity bldg:QSMoKvxV ;
+    visu:targetEntity bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 .
+
+bldg:vGyePvWL a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:docYNlLP ;
+    visu:targetEntity bldg:aWXxrZBk .
+
+bldg:wEjiRgpj a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "1175.0"^^xsd:float ;
+            visu:y "375.0"^^xsd:float ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:xAsqTyXN ;
+    visu:targetEntity bldg:MFpFXqpt .
+
+bldg:yfQnPvwV a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 ;
+    visu:targetEntity bldg:sXMsRcxF .
+
+visu:Connection_1 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:2621fa11-2704-4be7-98de-1a454c3160b6 ;
+    visu:targetEntity bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 .
+
+visu:Connection_2 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:04958f29-f892-41bf-97a6-83c9d57faf90 ;
+    visu:targetEntity bldg:1690f306-516b-4775-802a-da4b5f0e5b87 .
+
+visu:Connection_3 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 ;
+    visu:targetEntity bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 .
+
+visu:Connection_4 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e ;
+    visu:targetEntity bldg:62c54551-2035-4562-ba83-54cabf8dca59 .
+
+visu:Connection_5 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 170 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 ;
+    visu:targetEntity bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 .
+
+visu:Connection_55 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Valve_Command_Ro1 ;
+    visu:targetEntity bldg:62c54551-2035-4562-ba83-54cabf8dca59 .
+
+visu:Connection_56 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Enable_Command_Ro1 ;
+    visu:targetEntity bldg:62c54551-2035-4562-ba83-54cabf8dca59 .
+
+visu:Connection_57 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Valve_Command_Ro2 ;
+    visu:targetEntity bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 .
+
+visu:Connection_58 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Enable_Command_Ro2 ;
+    visu:targetEntity bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 .
+
+visu:Connection_59 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Valve_Command_Bth ;
+    visu:targetEntity bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 .
+
+visu:Connection_60 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Enable_Command_Bth ;
+    visu:targetEntity bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 .
+
+visu:Connection_61 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Valve_Command_Ro3 ;
+    visu:targetEntity bldg:1690f306-516b-4775-802a-da4b5f0e5b87 .
+
+visu:Connection_62 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Enable_Command_Ro3 ;
+    visu:targetEntity bldg:1690f306-516b-4775-802a-da4b5f0e5b87 .
+
+visu:Connection_63 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Valve_Command_Liv ;
+    visu:targetEntity bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 .
+
+visu:Connection_64 a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:Enable_Command_Liv ;
+    visu:targetEntity bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 .
+
+bldg:2fa1abef-338c-4159-b852-c336e1f8d559 a brick:Temperature_Setpoint ;
+    rdfs:label "Bth"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.0375e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:dqeTkgkE ;
+    ref:hasExternalReference bldg:rEsUGRbY .
+
+bldg:35be2a77-5c31-478c-b1f1-22936f95ca8f a brick:Temperature_Setpoint ;
+    rdfs:label "Ro3"^^xsd:string ;
+    visu:hasPosition [ visu:x 8.875e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:lJoacthy ;
+    ref:hasExternalReference bldg:NzSCRBfj .
+
+bldg:8e0767a8-1d5c-4928-88d1-62d7d615ef84 a brick:Temperature_Setpoint ;
+    rdfs:label "Ro1"^^xsd:string ;
+    visu:hasPosition [ visu:x 5.875e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:JLArAlMx ;
+    ref:hasExternalReference bldg:jLpvwqix .
+
+bldg:CFJlzCCk a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 9.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:04958f29-f892-41bf-97a6-83c9d57faf90 ;
+    ref:hasExternalReference bldg:XOZIjUpQ .
+
+bldg:Enable_Command_Bth a brick:Enable_Command ;
+    rdfs:label "Bth Valve Enable Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.1125e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 .
+
+bldg:Enable_Command_Liv a brick:Enable_Command ;
+    rdfs:label "Liv Valve Enable Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 5.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 .
+
+bldg:Enable_Command_Ro1 a brick:Enable_Command ;
+    rdfs:label "Ro1 Valve Enable Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 6.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:62c54551-2035-4562-ba83-54cabf8dca59 .
+
+bldg:Enable_Command_Ro2 a brick:Enable_Command ;
+    rdfs:label "Ro2 Valve Enable Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 8.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 .
+
+bldg:Enable_Command_Ro3 a brick:Enable_Command ;
+    rdfs:label "Ro3 Valve Enable Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 9.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:1690f306-516b-4775-802a-da4b5f0e5b87 .
+
+bldg:FcrRQzAU a brick:Temperature_Setpoint ;
+    rdfs:label "Ro2"^^xsd:string ;
+    visu:hasPosition [ visu:x 7.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:TdPUYWQN ;
+    ref:hasExternalReference bldg:TllIFxAL .
+
+bldg:MGWjAUwB a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,26" ;
+    bacnet:object-name "reaHeaRo2_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:MgHEApkR a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,78" ;
+    bacnet:object-name "conHeaRo3_oveActHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:NtCkRWid a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 1.2125e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:218fa387-d384-47d0-b51d-303392542fb8 ;
+    ref:hasExternalReference bldg:QRzlyaEs .
+
+bldg:NzSCRBfj a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,79" ;
+    bacnet:object-name "conHeaRo3_oveTSetHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:ORzffrTn a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,30" ;
+    bacnet:object-name "reaTHal_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:QRzlyaEs a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,23" ;
+    bacnet:object-name "reaHeaHal_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:QVgbAfhE a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,11" ;
+    bacnet:object-name "conHeaRo1_reaTZon_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:RvqfJiwf a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,76" ;
+    bacnet:object-name "conHeaRo2_oveActHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:SIYrgTlg a brick:Temperature_Sensor ;
+    rdfs:label "Bth"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.0125e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:dqeTkgkE ;
+    ref:hasExternalReference bldg:aweFzMyF .
+
+bldg:SWASqqDH a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,13" ;
+    bacnet:object-name "conHeaRo3_reaTZon_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:TliyjjPi a brick:Temperature_Setpoint ;
+    rdfs:label "Liv"^^xsd:string ;
+    visu:hasPosition [ visu:x 3.875e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:QSMoKvxV ;
+    ref:hasExternalReference bldg:dmadcEYQ .
+
+bldg:TllIFxAL a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,77" ;
+    bacnet:object-name "conHeaRo2_oveTSetHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:UTJPpUPu a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,12" ;
+    bacnet:object-name "conHeaRo2_reaTZon_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:UmalbpeK a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,80" ;
+    bacnet:object-name "oveEmiPum_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:Valve_Command_Bth a brick:Position_Command ;
+    rdfs:label "Bth Valve Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.0875e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 ;
+    ref:hasExternalReference bldg:nTUgJZYw .
+
+bldg:Valve_Command_Liv a brick:Position_Command ;
+    rdfs:label "Liv Valve Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 4.875e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 ;
+    ref:hasExternalReference bldg:ggMPhhyC .
+
+bldg:Valve_Command_Ro1 a brick:Position_Command ;
+    rdfs:label "Ro1 Valve Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 6.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:62c54551-2035-4562-ba83-54cabf8dca59 ;
+    ref:hasExternalReference bldg:WZFpGZOx .
+
+bldg:Valve_Command_Ro2 a brick:Position_Command ;
+    rdfs:label "Ro2 Valve Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 7.875e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 ;
+    ref:hasExternalReference bldg:RvqfJiwf .
+
+bldg:Valve_Command_Ro3 a brick:Position_Command ;
+    rdfs:label "Ro3 Valve Command"^^xsd:string ;
+    visu:hasPosition [ visu:x 9.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:1690f306-516b-4775-802a-da4b5f0e5b87 ;
+    ref:hasExternalReference bldg:MgHEApkR .
+
+bldg:WZFpGZOx a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,74" ;
+    bacnet:object-name "conHeaRo1_oveActHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:XOZIjUpQ a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,27" ;
+    bacnet:object-name "reaHeaRo3_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:aiUIijKw a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,24" ;
+    bacnet:object-name "reaHeaLiv_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:aweFzMyF a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,9" ;
+    bacnet:object-name "conHeaBth_reaTZon_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:cdansDxA a brick:Temperature_Sensor ;
+    rdfs:label "Ro1"^^xsd:string ;
+    visu:hasPosition [ visu:x 5.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:JLArAlMx ;
+    ref:hasExternalReference bldg:QVgbAfhE .
+
+bldg:dQzwHfbT a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,61" ;
+    bacnet:object-name "conCooHal_oveTSetCoo_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:dmadcEYQ a ref:BACnetReference .
+
+bldg:docYNlLP a brick:Speed_Command ;
+    visu:hasPosition [ visu:x 2.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:aWXxrZBk ;
+    ref:hasExternalReference bldg:UmalbpeK .
+
+bldg:gHmntqxZ a brick:Temperature_Sensor ;
+    rdfs:label "Ro3"^^xsd:string ;
+    visu:hasPosition [ visu:x 8.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:lJoacthy ;
+    ref:hasExternalReference bldg:SWASqqDH .
+
+bldg:gaJwOBem a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,73" ;
+    bacnet:object-name "conHeaLiv_oveTSetHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:ggMPhhyC a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,72" ;
+    bacnet:object-name "conHeaLiv_oveActHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:giMJtLtR a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 7.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 ;
+    ref:hasExternalReference bldg:MGWjAUwB .
+
+bldg:iRPkgbFM a brick:Temperature_Sensor ;
+    rdfs:label "Liv"^^xsd:string ;
+    visu:hasPosition [ visu:x 4.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:QSMoKvxV ;
+    ref:hasExternalReference bldg:oDmDzFGv .
+
+bldg:iqPEQWWs a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,25" ;
+    bacnet:object-name "reaHeaRo1_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:jLpvwqix a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,75" ;
+    bacnet:object-name "conHeaRo1_oveTSetHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:lVjKZLHX a brick:Position_Command ;
+    visu:hasPosition [ visu:x 1.375e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:sXMsRcxF ;
+    ref:hasExternalReference bldg:wKZHMYJJ .
+
+bldg:lniBLrfp a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 6.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e ;
+    ref:hasExternalReference bldg:iqPEQWWs .
+
+bldg:mEezrdUZ a brick:Temperature_Sensor ;
+    visu:hasPosition [ visu:x 1.1875e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:MFpFXqpt ;
+    ref:hasExternalReference bldg:ORzffrTn .
+
+bldg:mXyqICfi a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 4.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 ;
+    ref:hasExternalReference bldg:aiUIijKw .
+
+bldg:nTUgJZYw a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,70" ;
+    bacnet:object-name "conHeaBth_oveActHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:oDmDzFGv a ref:BACnetReference ;
+    bacnet:object-identifier "analog-input,10" ;
+    bacnet:object-name "conHeaLiv_reaTZon_y" ;
+    bacnet:object-type "analog-input" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:qHvZWExi a brick:Temperature_Sensor ;
+    rdfs:label "Ro2"^^xsd:string ;
+    visu:hasPosition [ visu:x 7.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:TdPUYWQN ;
+    ref:hasExternalReference bldg:UTJPpUPu .
+
+bldg:rEsUGRbY a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,71" ;
+    bacnet:object-name "conHeaBth_oveTSetHea_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:wKZHMYJJ a ref:BACnetReference ;
+    bacnet:object-identifier "analog-output,81" ;
+    bacnet:object-name "oveMixValSup_u" ;
+    bacnet:object-type "analog-output" ;
+    bacnet:objectOf "http://example.org/building#boptest-proxy-device" .
+
+bldg:xAsqTyXN a brick:Temperature_Setpoint ;
+    visu:hasPosition [ visu:x 1.1625e+03 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:MFpFXqpt ;
+    ref:hasExternalReference bldg:dQzwHfbT .
+
+bldg:aWXxrZBk a brick:Pump ;
+    visu:hasPosition [ visu:x 2e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:sXMsRcxF a brick:Bypass_Valve ;
+    visu:hasPosition [ visu:x 1.25e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:2621fa11-2704-4be7-98de-1a454c3160b6 a brick:Radiator ;
+    rdfs:label "Bth"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.1e+03 ;
+            visu:y 6e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 .
+
+bldg:009ed1cc-d0c8-486c-a926-45ea89e16947 a brick:Valve ;
+    rdfs:label "Bth"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.1e+03 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:1690f306-516b-4775-802a-da4b5f0e5b87 a brick:Valve ;
+    rdfs:label "Ro3"^^xsd:string ;
+    visu:hasPosition [ visu:x 9.5e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:218fa387-d384-47d0-b51d-303392542fb8 a brick:Radiator ;
+    rdfs:label "Hal"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.25e+03 ;
+            visu:y 6e+02 ] ;
+    visu:rotation 0 .
+
+bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 a brick:Valve ;
+    rdfs:label "Ro2"^^xsd:string ;
+    visu:hasPosition [ visu:x 8e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:62c54551-2035-4562-ba83-54cabf8dca59 a brick:Valve ;
+    rdfs:label "Ro1"^^xsd:string ;
+    visu:hasPosition [ visu:x 6.5e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 a brick:Valve ;
+    rdfs:label "Liv"^^xsd:string ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 0 .
+
+bldg:kpviCZlL a rec:Level ;
+    visu:hasPosition [ visu:x 8e+02 ;
+            visu:y 2.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:JLArAlMx,
+        bldg:MFpFXqpt,
+        bldg:QSMoKvxV,
+        bldg:TdPUYWQN,
+        bldg:dqeTkgkE,
+        bldg:lJoacthy .
+
+bldg:04958f29-f892-41bf-97a6-83c9d57faf90 a brick:Radiator ;
+    rdfs:label "Ro3"^^xsd:string ;
+    visu:hasPosition [ visu:x 9.5e+02 ;
+            visu:y 6e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:1690f306-516b-4775-802a-da4b5f0e5b87 .
+
+bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 a brick:Radiator ;
+    rdfs:label "Liv"^^xsd:string ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 6e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:bffdd6d5-ef6a-42a1-ab49-eb701b86b035 .
+
+bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 a brick:Radiator ;
+    rdfs:label "Ro2"^^xsd:string ;
+    visu:hasPosition [ visu:x 8e+02 ;
+            visu:y 6e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:389e553c-b531-4ad9-ab34-b4a0770931e5 .
+
+bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e a brick:Radiator ;
+    rdfs:label "Ro1"^^xsd:string ;
+    visu:hasPosition [ visu:x 6.5e+02 ;
+            visu:y 6e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:62c54551-2035-4562-ba83-54cabf8dca59 .
+
+bldg:JLArAlMx a rec:Room ;
+    rdfs:label "Ro1"^^xsd:string ;
+    visu:hasPosition [ visu:x 6.5e+02 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:isLocationOf bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e .
+
+bldg:MFpFXqpt a rec:Room ;
+    rdfs:label "Hal"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.25e+03 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:isLocationOf bldg:218fa387-d384-47d0-b51d-303392542fb8 .
+
+bldg:QSMoKvxV a rec:Room ;
+    rdfs:label "Liv"^^xsd:string ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:isLocationOf bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65 .
+
+bldg:TdPUYWQN a rec:Room ;
+    rdfs:label "Ro2"^^xsd:string ;
+    visu:hasPosition [ visu:x 8e+02 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:isLocationOf bldg:57d7c90b-85b1-44ec-b521-4787d2c99870 .
+
+bldg:dqeTkgkE a rec:Room ;
+    rdfs:label "Bth"^^xsd:string ;
+    visu:hasPosition [ visu:x 1.1e+03 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:isLocationOf bldg:2621fa11-2704-4be7-98de-1a454c3160b6 .
+
+bldg:lJoacthy a rec:Room ;
+    rdfs:label "Ro3"^^xsd:string ;
+    visu:hasPosition [ visu:x 9.5e+02 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:isLocationOf bldg:04958f29-f892-41bf-97a6-83c9d57faf90 .
+
+bldg:977cd4c0-d4ce-4582-a9b0-28e1d7beb946 a brick:Boiler ;
+    visu:hasPosition [ visu:x 3.25e+02 ;
+            visu:y 4.6e+02 ] ;
+    visu:rotation 0 ;
+    brick:feeds bldg:04958f29-f892-41bf-97a6-83c9d57faf90,
+        bldg:218fa387-d384-47d0-b51d-303392542fb8,
+        bldg:2621fa11-2704-4be7-98de-1a454c3160b6,
+        bldg:28ab2650-fd7f-4f98-ae05-84721fcdcb65,
+        bldg:57d7c90b-85b1-44ec-b521-4787d2c99870,
+        bldg:8016aa5f-fed3-40e3-8ee7-f2a106c8f83e ;
+    brick:hasPart bldg:aWXxrZBk,
+        bldg:sXMsRcxF .
+

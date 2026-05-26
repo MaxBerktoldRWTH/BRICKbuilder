@@ -1,0 +1,79 @@
+@prefix brick:        <https://brickschema.org/schema/Brick#> .
+@prefix customShapes: <http://example.org/shapes#> .
+@prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rec:          <https://w3id.org/rec#> .
+@prefix sh:           <http://www.w3.org/ns/shacl#> .
+@prefix xsd:          <http://www.w3.org/2001/XMLSchema#> .
+
+# 1. Every radiator must be located in exactly one room
+customShapes:RadiatorShape a sh:NodeShape ;
+    sh:targetClass brick:Radiator ;
+    sh:property [
+        sh:path brick:hasLocation ;
+        sh:class rec:Room ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Every radiator must be located in exactly one room." ;
+    ] .
+
+# 2. Every valve must have exactly one position command 
+# (Note: In Brick, commands are usually linked to equipment via brick:isPointOf in reverse, 
+# or via sh:inversePath if checking from the Valve's perspective).
+customShapes:ValveShape a sh:NodeShape ;
+    sh:targetClass brick:Valve ;
+    sh:property [
+        sh:path [ sh:inversePath brick:isPointOf ] ;
+        sh:qualifiedValueShape [
+            sh:class brick:Position_Command ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Every valve must have exactly one position command." ;
+    ] .
+
+# 3. Every room must have exactly one temperature setpoint
+customShapes:RoomSetpointShape a sh:NodeShape ;
+    sh:targetClass rec:Room ;
+    sh:property [
+        sh:path [ sh:inversePath brick:isPointOf ] ;
+        sh:qualifiedValueShape [
+            sh:class brick:Temperature_Setpoint ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Every room must have exactly one temperature setpoint." ;
+    ] .
+
+# 4. Every room with a radiator must have at least one temperature sensor
+customShapes:RoomSensorShape a sh:NodeShape ;
+    sh:targetClass rec:Room ;
+    # We use sh:condition to only target rooms that actually contain a Radiator
+    sh:condition [
+        sh:property [
+            sh:path [ sh:inversePath brick:hasLocation ] ;
+            sh:class brick:Radiator ;
+            sh:minCount 1 ;
+        ] ;
+    ] ;
+    # For those targeted rooms, ensure they have at least one Temperature Sensor point
+    sh:property [
+        sh:path [ sh:inversePath brick:isPointOf ] ;
+        sh:qualifiedValueShape [
+            sh:class brick:Temperature_Sensor ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Every room with a radiator must have at least one temperature sensor." ;
+    ] .
+
+# 5. Each radiator can have at most one heating valve
+customShapes:RadiatorValveShape a sh:NodeShape ;
+    sh:targetClass brick:Radiator ;
+    sh:property [
+        sh:path brick:hasPart ;
+        sh:qualifiedValueShape [
+            sh:class brick:Valve ;
+        ] ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Each radiator can have at most one heating valve." ;
+    ] .

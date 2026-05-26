@@ -1,0 +1,26 @@
+@prefix bldg: <http://example.org/building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix visu: <http://example.org/visualization#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bldg:LHrTtJrf a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:cWQtwiqt ;
+    visu:targetEntity bldg:LHpxVyQS .
+
+bldg:cWQtwiqt a brick:Valve_Command ;
+    visu:hasPosition [ visu:x 5.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:LHpxVyQS .
+
+bldg:LHpxVyQS a brick:Valve ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 180 .
+

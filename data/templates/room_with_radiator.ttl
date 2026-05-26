@@ -1,0 +1,134 @@
+@prefix bldg: <http://example.org/building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rec: <https://w3id.org/rec#> .
+@prefix visu: <http://example.org/visualization#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bldg:LHrTtJrf a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:cWQtwiqt ;
+    visu:targetEntity bldg:LHpxVyQS .
+
+bldg:LXeMyePz a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "400.0"^^xsd:float ;
+            visu:y "500.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:CWJAPobd ;
+    visu:targetEntity bldg:qnxXqqri .
+
+bldg:MPrwKexV a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "475.0"^^xsd:float ;
+            visu:y "650.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:rTENoEya ;
+    visu:targetEntity bldg:mAVxBKqY .
+
+bldg:PoaMKPXm a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:QPguieVs ;
+    visu:targetEntity bldg:qnxXqqri .
+
+bldg:RMRWGTnv a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:hasJoint [ visu:jointIndex 0 ;
+            visu:x "425.0"^^xsd:float ;
+            visu:y "500.0"^^xsd:float ] ;
+    visu:lineStyle 2 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:isPointOf ;
+    visu:sourceEntity bldg:NDkgGgFw ;
+    visu:targetEntity bldg:qnxXqqri .
+
+bldg:UOSkyJgQ a visu:Connection ;
+    visu:color [ visu:blue 0 ;
+            visu:green 0 ;
+            visu:red 0 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasLocation ;
+    visu:sourceEntity bldg:mAVxBKqY ;
+    visu:targetEntity bldg:qnxXqqri .
+
+bldg:zcGuUEbV a visu:Connection ;
+    visu:color [ visu:blue 77 ;
+            visu:green 85 ;
+            visu:red 86 ] ;
+    visu:lineStyle 1 ;
+    visu:lineWidth 2 ;
+    visu:relationshipType brick:hasPart ;
+    visu:sourceEntity bldg:mAVxBKqY ;
+    visu:targetEntity bldg:LHpxVyQS .
+
+bldg:CWJAPobd a brick:Temperature_Sensor ;
+    visu:hasPosition [ visu:x 3.875e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:qnxXqqri .
+
+bldg:NDkgGgFw a brick:Temperature_Setpoint ;
+    visu:hasPosition [ visu:x 4.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:qnxXqqri .
+
+bldg:QPguieVs a rec:Room ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 3.5e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasPart bldg:qnxXqqri .
+
+bldg:cWQtwiqt a brick:Valve_Command ;
+    visu:hasPosition [ visu:x 5.125e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:LHpxVyQS .
+
+bldg:rTENoEya a brick:Energy_Sensor ;
+    visu:hasPosition [ visu:x 4.625e+02 ;
+            visu:y 8.75e+02 ] ;
+    visu:rotation 0 ;
+    brick:isPointOf bldg:mAVxBKqY .
+
+bldg:LHpxVyQS a brick:Valve ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 7.25e+02 ] ;
+    visu:rotation 180 .
+
+bldg:mAVxBKqY a brick:Radiator ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 6.25e+02 ] ;
+    visu:rotation 0 ;
+    brick:hasLocation bldg:qnxXqqri ;
+    brick:hasPart bldg:LHpxVyQS .
+
+bldg:qnxXqqri a rec:Zone ;
+    rdfs:label "Badezimmer"^^xsd:string ;
+    visu:hasPosition [ visu:x 5e+02 ;
+            visu:y 4.75e+02 ] ;
+    visu:rotation 0 .
+
