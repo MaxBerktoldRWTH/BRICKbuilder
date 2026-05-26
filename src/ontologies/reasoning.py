@@ -100,7 +100,7 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph):
     return conforms, results_graph, results_text
 
 
-def infer_graph(data_graph: Graph, ont_graph: Graph, shacl_graph: Graph):
+def infer_graph(data_graph: Graph, ont_graph: Graph, shacl_graph: Graph = None):
     """Validates the graph against SHACL constraints."""
 
     triples_before = len(data_graph)

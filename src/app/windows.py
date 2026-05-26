@@ -15,6 +15,9 @@ from src.app.widgets import (
 
 from src.ifc import extract_topology
 from src.app.items import EntityItem, ConnectionItem
+from src.validation.shacl import validate_graph_with_shacl
+from src.app.shacl_dialogs import ShaclValidationReportDialog
+from src.ontologies.reasoning import reason_with_owlrl
 
 
 class DiagramApplication(QMainWindow):
@@ -33,6 +36,8 @@ class DiagramApplication(QMainWindow):
 
         # OR for your QGraphicsView
         self.canvas.setAcceptDrops(True)
+
+        self.shacl_file_path = None  # Store the SHACL file path for validation
 
     def _setup_ui(self):
 
@@ -200,6 +205,20 @@ class DiagramApplication(QMainWindow):
         toggle_points_action.triggered.connect(self.canvas.toggle_points_visibility)
         view_menu.addAction(toggle_points_action)
 
+        # Validation menu
+        validation_menu = menu_bar.addMenu("Validation")
+
+        load_shacl_action = QAction("Load SHACL Shapes (.ttl)", self)
+        load_shacl_action.setStatusTip("Load a SHACL shapes file")
+        load_shacl_action.triggered.connect(self._load_shacl_file)
+        validation_menu.addAction(load_shacl_action)
+
+        validate_shacl_action = QAction("Validate with SHACL", self)
+        validate_shacl_action.setShortcut("Ctrl+Shift+V")
+        validate_shacl_action.setStatusTip("Validate the current design using the loaded SHACL shapes")
+        validate_shacl_action.triggered.connect(self._validate_with_shacl)
+        validation_menu.addAction(validate_shacl_action)
+
     def _export_to_turtle(self):
         """Export the current design to a Turtle file."""
         file_path, _ = QFileDialog.getSaveFileName(
@@ -359,3 +378,91 @@ class DiagramApplication(QMainWindow):
             new_graph.bind(prefix, namespace)
 
         return new_graph
+
+    def _load_shacl_file(self):
+        """
+        Let the user select a SHACL Turtle file.
+        """
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Load SHACL Shapes File",
+            "",
+            "Turtle Files (*.ttl);;All Files (*)"
+        )
+
+        if not file_path:
+            return
+
+        try:
+            # Parse once to fail early if file is invalid.
+            test_graph = rdflib.Graph()
+            test_graph.parse(file_path, format="turtle")
+
+            self.shacl_file_path = file_path
+            self.statusBar().showMessage(f"Loaded SHACL shapes: {file_path}")
+
+            QMessageBox.information(
+                self,
+                "SHACL Shapes Loaded",
+                f"Loaded SHACL shapes file:\n{file_path}"
+            )
+
+        except Exception as e:
+            QMessageBox.critical(
+                self,
+                "SHACL Load Error",
+                f"Could not load SHACL shapes file:\n{str(e)}"
+            )
+
+    def _validate_with_shacl(self):
+        """
+        Validate the current canvas RDF graph against the loaded SHACL shapes.
+        """
+        if not self.shacl_file_path:
+            QMessageBox.warning(
+                self,
+                "No SHACL File",
+                "Please load a SHACL shapes file first."
+            )
+            return
+
+        try:
+            data_graph = self.canvas.to_rdf_graph()
+
+            from src.ontologies.graphs import BRICK_GRAPH
+
+            data_graph = reason_with_owlrl(data_graph + BRICK_GRAPH())
+
+            validation_result = validate_graph_with_shacl(
+                data_graph=data_graph,
+                shacl_file_path=self.shacl_file_path,
+                inference="rdfs",
+                abort_on_first=False,
+                allow_warnings=False,
+                allow_infos=False,
+            )
+
+            if validation_result.conforms:
+                self.statusBar().showMessage("SHACL validation passed")
+                QMessageBox.information(
+                    self,
+                    "SHACL Validation Passed",
+                    "The current design conforms to the loaded SHACL constraints."
+                )
+            else:
+                self.statusBar().showMessage(
+                    f"SHACL validation failed: {len(validation_result.violations)} result(s)"
+                )
+
+                dialog = ShaclValidationReportDialog(
+                    validation_result=validation_result,
+                    parent=self
+                )
+                dialog.exec_()
+
+        except Exception as e:
+            QMessageBox.critical(
+                self,
+                "SHACL Validation Error",
+                f"An error occurred during SHACL validation:\n{str(e)}"
+            )

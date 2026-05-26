@@ -1470,147 +1470,179 @@ class Canvas(QGraphicsView):
             if isinstance(item, (EntityItem, ConnectionItem, JointItem)):
                 item.setSelected(True)
 
-    def save_to_turtle(self, file_path):
+    def to_rdf_graph(self) -> rdflib.Graph:
         """
-        Save the current design to a Turtle file.
-
-        Args:
-            file_path: Path where the file will be saved
+        Convert the current canvas design to an RDF graph without writing it to disk.
         """
-        # Create a new RDF graph
         g = rdflib.Graph()
-
-        # Create explicit URIRefs for our design properties
         bind_namespaces(g=g)
 
         # Store all entities
         for item in self.scene.items():
 
-            # Process EntityItems
             if isinstance(item, EntityItem):
-                # Add type triple
                 g.add((item.instance_uri, rdflib.RDF.type, item.entity.uri_ref))
 
-                # Add position information
                 pos = item.pos()
                 pos_node = rdflib.BNode()
                 g.add((item.instance_uri, VISU.hasPosition, pos_node))
                 g.add((pos_node, VISU.x, rdflib.Literal(float(pos.x()))))
                 g.add((pos_node, VISU.y, rdflib.Literal(float(pos.y()))))
 
-                # Add rotation information
-                rotation_literal = rdflib.Literal(item.rotation_angle, datatype=rdflib.XSD.integer)
+                rotation_literal = rdflib.Literal(
+                    item.rotation_angle,
+                    datatype=rdflib.XSD.integer
+                )
                 g.add((item.instance_uri, VISU.rotation, rotation_literal))
 
-                # Add label if it exists
                 if item.label:
-                    g.add(
-                        (item.instance_uri, rdflib.RDFS.label, rdflib.Literal(item.label, datatype=rdflib.XSD.string)))
+                    g.add((
+                        item.instance_uri,
+                        rdflib.RDFS.label,
+                        rdflib.Literal(item.label, datatype=rdflib.XSD.string)
+                    ))
 
                 if isinstance(item.entity, Point) and item.external_reference:
-                    ref_data = item.external_reference  # Get the single dictionary
-                    ref_node = BLDG[short_uuid()]  # Create a node for the reference details
+                    ref_data = item.external_reference
+                    ref_node = BLDG[short_uuid()]
 
                     g.add((item.instance_uri, BRICK_REF.hasExternalReference, ref_node))
 
                     ref_type = ref_data.get('type')
+
                     if ref_type == "BACnet":
                         g.add((ref_node, RDF.type, BRICK_REF.BACnetReference))
-                        option = ref_data.get('option', 1)
-                        # Store option explicitly? Optional, but could be helpful
-                        # g.add((ref_node, VISU.bacnetOption, rdflib.Literal(option)))
 
-                        # Option 1: Use specific BACnet properties
+                        option = ref_data.get('option', 1)
+
                         if option == 1:
                             if 'object-identifier' in ref_data:
-                                g.add((ref_node, BACNET['object-identifier'],
-                                       rdflib.Literal(ref_data['object-identifier'])))
-                            if 'object-name' in ref_data:
-                                g.add((ref_node, BACNET['object-name'], rdflib.Literal(ref_data['object-name'])))
-                            if 'object-type' in ref_data:
-                                g.add((ref_node, BACNET['object-type'], rdflib.Literal(ref_data['object-type'])))
-                            # Use 'property-identifier' for saving if available
-                            prop_id_key = 'property-identifier' if 'property-identifier' in ref_data else 'read-property'
-                            if prop_id_key in ref_data:
-                                g.add((ref_node, BACNET['property-identifier'],
-                                       rdflib.Literal(ref_data[prop_id_key])))  # Save as property-identifier
-                            if 'objectOf' in ref_data:  # Device ID stored as objectOf
-                                g.add((ref_node, BACNET.objectOf,
-                                       rdflib.Literal(ref_data['objectOf'])))  # Literal for now
+                                g.add((
+                                    ref_node,
+                                    BACNET['object-identifier'],
+                                    rdflib.Literal(ref_data['object-identifier'])
+                                ))
 
-                        # Option 2: Use BACnetURI
+                            if 'object-name' in ref_data:
+                                g.add((
+                                    ref_node,
+                                    BACNET['object-name'],
+                                    rdflib.Literal(ref_data['object-name'])
+                                ))
+
+                            if 'object-type' in ref_data:
+                                g.add((
+                                    ref_node,
+                                    BACNET['object-type'],
+                                    rdflib.Literal(ref_data['object-type'])
+                                ))
+
+                            prop_id_key = (
+                                'property-identifier'
+                                if 'property-identifier' in ref_data
+                                else 'read-property'
+                            )
+
+                            if prop_id_key in ref_data:
+                                g.add((
+                                    ref_node,
+                                    BACNET['property-identifier'],
+                                    rdflib.Literal(ref_data[prop_id_key])
+                                ))
+
+                            if 'objectOf' in ref_data:
+                                g.add((
+                                    ref_node,
+                                    BACNET.objectOf,
+                                    rdflib.Literal(ref_data['objectOf'])
+                                ))
+
                         elif option == 2:
                             if 'BACnetURI' in ref_data:
-                                g.add((ref_node, BRICK.BACnetURI, rdflib.Literal(ref_data['BACnetURI'])))
-                            if 'objectOf' in ref_data:  # Device ID stored as objectOf
-                                g.add((ref_node, BACNET.objectOf,
-                                       rdflib.Literal(ref_data['objectOf'])))  # Literal for now
+                                g.add((
+                                    ref_node,
+                                    BRICK.BACnetURI,
+                                    rdflib.Literal(ref_data['BACnetURI'])
+                                ))
+
+                            if 'objectOf' in ref_data:
+                                g.add((
+                                    ref_node,
+                                    BACNET.objectOf,
+                                    rdflib.Literal(ref_data['objectOf'])
+                                ))
 
                     elif ref_type == "Timeseries":
                         g.add((ref_node, RDF.type, BRICK_REF.TimeseriesReference))
+
                         if 'timeseriesId' in ref_data:
-                            g.add((ref_node, BRICK_REF.hasTimeseriesId, rdflib.Literal(ref_data['timeseriesId'])))
+                            g.add((
+                                ref_node,
+                                BRICK_REF.hasTimeseriesId,
+                                rdflib.Literal(ref_data['timeseriesId'])
+                            ))
+
                         if 'storedAt' in ref_data:
-                            # Assuming storedAt is a URI/IRI, save as URIRef if possible, else Literal
-                            try:
-                                stored_at_uri = rdflib.URIRef(ref_data['storedAt'])
-                                g.add((ref_node, BRICK_REF.storedAt, stored_at_uri))
-                            except:  # Handle invalid URIs if necessary
-                                g.add((ref_node, BRICK_REF.storedAt, rdflib.Literal(ref_data['storedAt'])))
+                            stored_at_value = ref_data['storedAt']
+
+                            if stored_at_value.startswith(("http://", "https://", "urn:", "file:")):
+                                g.add((
+                                    ref_node,
+                                    BRICK_REF.storedAt,
+                                    rdflib.URIRef(stored_at_value)
+                                ))
+                            else:
+                                g.add((
+                                    ref_node,
+                                    BRICK_REF.storedAt,
+                                    rdflib.Literal(stored_at_value)
+                                ))
 
         # Store all connections
         for item in self.scene.items():
             if isinstance(item, ConnectionItem) and item.source_port and item.target_port:
-
-                # Add the relationship triple
                 source_uri = item.get_source_entity_uri()
                 target_uri = item.get_target_entity_uri()
 
                 if source_uri and target_uri:
-                    # Store the relationship type
                     g.add((source_uri, item.relationship_type, target_uri))
 
-                    # Store connection visual properties
-                    g.add((item.instance_uri, rdflib.RDF.type, rdflib.URIRef(VISU.Connection)))
-                    g.add((item.instance_uri, rdflib.URIRef(VISU + "sourceEntity"), source_uri))
-                    g.add((item.instance_uri, rdflib.URIRef(VISU + "targetEntity"), target_uri))
-                    g.add((item.instance_uri, rdflib.URIRef(VISU + "relationshipType"), item.relationship_type))
+                    g.add((item.instance_uri, rdflib.RDF.type, VISU.Connection))
+                    g.add((item.instance_uri, VISU.sourceEntity, source_uri))
+                    g.add((item.instance_uri, VISU.targetEntity, target_uri))
+                    g.add((item.instance_uri, VISU.relationshipType, item.relationship_type))
 
-                    # Store connection color
                     color = item.pen().color()
                     color_node = rdflib.BNode()
-                    g.add((item.instance_uri, rdflib.URIRef(VISU + "color"), color_node))
-                    g.add((color_node, rdflib.URIRef(VISU + "red"),
-                           rdflib.Literal(color.red(), datatype=rdflib.XSD.integer)))
-                    g.add(
-                        (color_node, rdflib.URIRef(VISU + "green"),
-                         rdflib.Literal(color.green(), datatype=rdflib.XSD.integer)))
-                    g.add((color_node, rdflib.URIRef(VISU + "blue"),
-                           rdflib.Literal(color.blue(), datatype=rdflib.XSD.integer)))
 
-                    # Store line style
+                    g.add((item.instance_uri, VISU.color, color_node))
+                    g.add((color_node, VISU.red, rdflib.Literal(color.red(), datatype=rdflib.XSD.integer)))
+                    g.add((color_node, VISU.green, rdflib.Literal(color.green(), datatype=rdflib.XSD.integer)))
+                    g.add((color_node, VISU.blue, rdflib.Literal(color.blue(), datatype=rdflib.XSD.integer)))
+
                     pen_style = item.pen().style()
-                    g.add((item.instance_uri, rdflib.URIRef(VISU + "lineStyle"),
+                    g.add((item.instance_uri, VISU.lineStyle,
                            rdflib.Literal(int(pen_style), datatype=rdflib.XSD.integer)))
 
-                    # Store line width
                     pen_width = item.pen().width()
-                    g.add((item.instance_uri, rdflib.URIRef(VISU + "lineWidth"),
-                           rdflib.Literal(pen_width, datatype=rdflib.XSD.integer)))
+                    g.add((item.instance_uri, VISU.lineWidth, rdflib.Literal(pen_width, datatype=rdflib.XSD.integer)))
 
-                    # Store joints - using explicit URIRefs to avoid the error
                     for i, joint in enumerate(item.joints):
                         joint_node = rdflib.BNode()
                         g.add((item.instance_uri, VISU.hasJoint, joint_node))
                         g.add((joint_node, VISU.jointIndex, rdflib.Literal(i, datatype=rdflib.XSD.integer)))
 
                         joint_pos = joint.scenePos()
-                        g.add(
-                            (joint_node, VISU.x, rdflib.Literal(float(joint_pos.x()), datatype=rdflib.XSD.float)))
-                        g.add(
-                            (joint_node, VISU.y, rdflib.Literal(float(joint_pos.y()), datatype=rdflib.XSD.float)))
+                        g.add((joint_node, VISU.x, rdflib.Literal(float(joint_pos.x()), datatype=rdflib.XSD.float)))
+                        g.add((joint_node, VISU.y, rdflib.Literal(float(joint_pos.y()), datatype=rdflib.XSD.float)))
 
-        # Serialize to turtle format and save
+        return g
+
+    def save_to_turtle(self, file_path):
+        """
+        Save the current design to a Turtle file.
+        """
+        g = self.to_rdf_graph()
         g.serialize(destination=file_path, format="turtle")
         return True
 
